@@ -1,5 +1,5 @@
 <?php
-	$server="localhost";
+	$server="localhost:3306";
 	$user="root";
 	$pass="";
 	$dbname="ibico";
@@ -10,4 +10,5 @@
 	{
 		echo "Falha na conexão:(".$conexao->connect_errno.") ".$conexao->connect_error;
 	}
+	
 ?>
