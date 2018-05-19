@@ -15,7 +15,7 @@
           die();
         }else{
           
-          setcookie("login",$login);
+          setcookie("login",$email);
 
 
       $verifica2 = mysql_query("SELECT nome FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
