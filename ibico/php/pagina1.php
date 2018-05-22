@@ -26,7 +26,7 @@ $logado = $_SESSION['nome'];
     <?php
     echo" Olá, $logado";
     ?>
-    <a href="finalizaSessao.php"><lefth><br>Sing up</br></lefth></a>
+    <a href="finalizaSessao.php"><lefth><br>Sign-out</br></lefth></a>
     </td>
   </tr>
   <tr>
