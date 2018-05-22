@@ -1,8 +1,11 @@
 
 <?php 
+start_session();
   $email = $_POST['login'];
   $entrar = $_POST['entrar'];
   $senha = $_POST['senha'];
+
+
   $connect = mysql_connect('localhost:3306','root','');
   $db = mysql_select_db('ibico');
     if (isset($entrar)) {
@@ -14,6 +17,10 @@
 
           die();
         }else{
+        // caso o usuario sejá autenticado a sessão é criada
+          start_session();
+          $_SESSION['email'] = $email;
+          $_SESSION['senha'] = $senha;
           
           setcookie("login",$email);
 

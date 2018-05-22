@@ -21,7 +21,10 @@ $logado = $_SESSION['email'];
 <table width="960" height="748" border="1">
   <tr>
     <td height="75" colspan="2" bgcolor="#CCCCCC"><center>Ibico
-    </center><?php
+    </center>
+   <a href="finalizaSessao.php"><lefth>Sing up</lefth></a>
+    </a>
+    <?php
     echo" Bem vindo $logado";
     ?>
     </td>
