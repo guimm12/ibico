@@ -7,10 +7,10 @@
 if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == true))
 {
     
-    header('location:sessao.php');
+    header('location:pagina1.php');
     }
  
-$logado = $_SESSION['login'];
+$logado = $_SESSION['email'];
 ?>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
