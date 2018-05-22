@@ -3,14 +3,15 @@
 <head>
 <!-- verificando se o usuário está logado -->
 <?php
-
-if((!isset ($_SESSION['email']) == true) and (!isset ($_SESSION['senha']) == true))
+session_start();
+if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == false))
 {
     
-    header('location:../html/login.html');
+   header('location:../html/login.html');
     }
- 
-$logado = $_SESSION['email'];
+
+$logado = $_SESSION['nome'];
+
 ?>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,15 +19,14 @@ $logado = $_SESSION['email'];
 </head>
  
 <body>
-<table width="960" height="748" border="1">
+<table width="1335" height="748" border="1">
   <tr>
     <td height="75" colspan="2" bgcolor="#CCCCCC"><center>Ibico
     </center>
-   <a href="finalizaSessao.php"><lefth>Sing up</lefth></a>
-    </a>
     <?php
-    echo" Bem vindo $logado";
+    echo" Olá, $logado";
     ?>
+    <a href="finalizaSessao.php"><lefth><br>Sing up</br></lefth></a>
     </td>
   </tr>
   <tr>

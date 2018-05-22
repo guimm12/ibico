@@ -1,6 +1,7 @@
 
 <?php 
-start_session();
+session_start();
+
   $email = $_POST['login'];
   $entrar = $_POST['entrar'];
   $senha = $_POST['senha'];
@@ -18,18 +19,22 @@ start_session();
           die();
         }else{
         // caso o usuario sejá autenticado a sessão é criada
-          start_session();
+          
+
+           $verifica2 = mysql_query("SELECT nome FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
+       $result=mysql_fetch_row($verifica2);
+
           $_SESSION['email'] = $email;
           $_SESSION['senha'] = $senha;
+          $_SESSION['nome'] = $result[0];
           
           setcookie("login",$email);
 
 
-      $verifica2 = mysql_query("SELECT nome FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
-       $result=mysql_fetch_row($verifica2);
+     
 
        
-        echo"<script language='javascript' type='text/javascript'>alert('Bem vindo ! $result ' );window.location.href='../html/pagina1.html';</script>";
+        echo"<script language='javascript' type='text/javascript'>alert('Bem vindo ! $result[0] ' );window.location.href='pagina1.php';</script>";
         }
     }
 ?>
