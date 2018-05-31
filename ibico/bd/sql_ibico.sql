@@ -10,6 +10,7 @@ create table usuario
     nome varchar(100) not null,
 	sobrenome varchar(300) not  null,
 	email varchar(300) not null,
+	sexo varchar(15);
     telefone varchar(12),
 	celular varchar(13),
     senha varchar(100) not null,

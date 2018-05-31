@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<title>Criar pedidos</title>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</head>
+<!-- Localidade  inicio -->
+
+<body>
+	<h1><center> Criando Pedido</center></h1>
+<center>
+	 <label>Titulo :</label>
+    <input placeholder="Meu serviço" id="Titulo" type="text" class="validate">
+
+	<br><label>Localidade :</label>
+	 <select>
+      <option value="" disabled selected>Escolha o estado</option>
+      <option value="1">São Paulo</option>
+      <option value="2">Rio de Janeiro</option>
+      <option value="3">Paraná</option>
+    </select>
+
+    <select>
+      <option value="" disabled selected>Sua cidade</option>
+      <option value="1">Santos</option>
+      <option value="2">Cubatão</option>
+      <option value="3">São Vicente</option>
+    </select>
+
+    <input placeholder="Bairro" id="Bairro" type="text" class="validate">
+
+    <!-- Contato -->
+
+	</br>
+	 <label>Contato :</label>
+    <input placeholder="(XX) XXXXXXXXX" id="Telefone" type="text" class="validate">
+    <!-- categoria-->
+    <br><label>Categoria :</label>
+	 <select>
+      <option value="" disabled selected>Categoria do serviço</option>
+      <option value="1">Reformas</option>
+      <option value="2">Assitencia técnica</option>
+      <option value="3">Consultoria</option>
+      <option value="3">Serviços domésticos</option>
+      <option value="3">Tecnologias</option>
+    </select>
+      <!-- Imagems-->
+	<br>
+      <label for="exampleInputFile">
+				Adicionar imagem
+	</label>
+	 <input type="file" class="form-control-file" id="exampleInputFile">
+    </br>
+        <!-- Descrição -->
+    <br>
+    <p>
+    	 <label>Descrição do pedido :</label>
+            <textarea placeholder="Detalhe seu pedido"></textarea>
+        </p>
+        <p class="submit">
+            <input type="submit"  value="Enviar" name="Envair" />
+        </p>
+   </br>
+
+
+
+   
+</center>
+</html>
+</body>
