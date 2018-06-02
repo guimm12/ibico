@@ -78,10 +78,17 @@ create table pedido
 (
 	cd_pedido int primary key auto_increment,
     dt_criacao datetime,
-	cd_localidade int,
-    contato varchar(300),
+    -- cd_localidade int,
     ds_titulo varchar(100),
-    ds_pedido varchar(5000)
+    ds_pedido varchar(5000),
+	contato varchar(300),
+    Id int not null,
+	CONSTRAINT FK_estado FOREIGN KEY (Id)
+    REFERENCES Estado(Id), 
+	CONSTRAINT FK_municipio FOREIGN KEY (Id)
+    REFERENCES Municipio(Id),
+	CONSTRAINT FK_bairro FOREIGN KEY (Id)
+    REFERENCES Bairro(Id)
 );
 
 create table pedido_tag
