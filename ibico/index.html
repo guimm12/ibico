@@ -382,15 +382,7 @@
 
 
               </div>
-              <script>
-              	function validaTermo(){
-              	var chekB = getElementByid("terms").value;
-              	if(chekB.checked ==false)
-              		alert('É preciso aceitar os termos para continuar !');
-              }
-              	
-              </script>
-			  
+         	  
 			   <div class="form-group">
                         <input type="checkbox"  requeired cheked name="terms" id="terms" value="aceito" class="filled-in chk-col-pink">
                         <label for="terms">Eu li e concordo com o <a href="javascript:void(0);">termo de uso</a>.</label>
@@ -403,7 +395,7 @@
       </div>
       
 	  <div class="modal-footer">
-	  <button class="btn blue" type="submit" name="action" onclick="validaTermo()">Registrar
+	  <button class="btn blue" type="submit" name="action" >Registrar
 		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
 		</button>
 		</form>
@@ -420,19 +412,19 @@
 	
 	  <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
 	  
-	  
+ <form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
     <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
       <div class="modal-content">
         <div class="container">
          
-                
+           
           <div class="row">
             <form class="col s12">
               <div class="row">
 		 
                 <div class="input-field col s12 l6">
 					
-                  <input id="title" type="text">
+                  <input id="title"  name ="Ped_title" type="text" required>
 				  
                   <label for="title">Titulo do Anúncio</label>
                 </div>
@@ -441,7 +433,7 @@
 
                 <div class="input-field col s12 l6">
 				<i class="mdi-communication-email prefix"></i>
-                  <input id="email" type="email" class="validate">
+                  <input id="email" type="email"  name="Ped_email" class="validate" required>
                   <label for="icon_email" data-error="Incorreto" data-success="Válido">E-mail</label>
                 </div>
                 
@@ -451,17 +443,17 @@
                 <div class="input-field col s12 l6">
 				<!-- Máximo de 11 caracteres, o suficiente para um número padrão DDD + número, exemplo: 13991636095 -->
                  <i class="mdi-communication-call prefix"></i> 
-				  <input id="input_text" type="text" maxlength="11"> <!-- minlength="11" -->
+				  <input id="input_text" type="text" name="Ped_telefone" maxlength="11"> <!-- minlength="11" -->
 				 
                   <label for="telefone">Telefone para contato</label>
                 </div>
 				
 				
-				<div class="row">
+				<div class="row" onload=""?>
                 <div class="input-field col s12 l6"> 
   
-				  <select class = "browser-default"> 
-                  <option value = "" disabled selected>Selecione o estado (UF)</option>		 
+				  <select name="Ped_estado" class = "browser-default" required> 
+                  <option value = ""  selected>Selecione o estado (UF)</option>		 
                </select>
                 </div>
 			  </div>
@@ -472,8 +464,8 @@
 				
 				<div class="input-field col s12 l6">
 					<div class="row">
-					  <select class = "browser-default"> 
-	                  <option value = "" disabled selected>Selecione a cidade</option>		 
+					  <select name="Ped_municipio" class = "browser-default" required> 
+	                  <option value = "" selected>Selecione a cidade</option>		 
 	               </select>
 	                </div>			  
                 </div>
@@ -481,16 +473,16 @@
 				
 				  <div class="input-field col s12 l6">
 					<div class="row">
-					  <select class = "browser-default"> 
-	                  <option value = "" disabled selected>Selecione o bairro</option>		 
+					  <select name="Ped_bairro" class = "browser-default" required> 
+	                  <option value = "" selected>Selecione o bairro</option>		 
 	               </select>
 				  </div>
 				 </div>
 			  
 			
                 <div class="input-field col s12 l6">
-               <select class = "browser-default">
-                    <option value = "" disabled selected>Selecione uma categoria</option>
+               <select  name="Ped_categoria" class = "browser-default" required>
+                    <option value = ""  selected>Selecione uma categoria</option>
                   <option value = "1">Informática</option>
                   <option value = "2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
 				  <option value = "3">Aulas</option>
@@ -508,7 +500,7 @@
 		
 			</div> 
 			<div class="input-field col s12 l6">
-			  <textarea rows="10" cols="40" maxlength="500"></textarea>
+			  <textarea  name="Ped_descrava" rows="10" cols="40"  maxlength="500" required ></textarea>
                <label for="descricao">Descreva seu Pedido</label>
         	   </div>
 			   
@@ -532,7 +524,7 @@
 				</div> -->
 			  	  
 		</div>	
-            </form>
+    </form>
           </div>
         </div>
       </div>
