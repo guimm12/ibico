@@ -487,29 +487,28 @@ $logado = $_SESSION['nome'];
 
 
  <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
-	  
-	  
+<form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
     <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
       <div class="modal-content">
         <div class="container">
          
-                
+           
           <div class="row">
             <form class="col s12">
               <div class="row">
 		 
                 <div class="input-field col s12 l6">
 					
-                  <input id="title" type="text">
+                  <input id="title"  name ="Ped_title" type="text" required>
 				  
-                  <label for="title">Titulo do Anúncio</label>
+                  <label for="title">Titulo do pedido</label>
                 </div>
                 
               <div class="row">
 
                 <div class="input-field col s12 l6">
 				<i class="mdi-communication-email prefix"></i>
-                  <input id="email" type="email" class="validate">
+                  <input id="email" type="email"  name="Ped_email" class="validate" required>
                   <label for="icon_email" data-error="Incorreto" data-success="Válido">E-mail</label>
                 </div>
                 
@@ -519,43 +518,17 @@ $logado = $_SESSION['nome'];
                 <div class="input-field col s12 l6">
 				<!-- Máximo de 11 caracteres, o suficiente para um número padrão DDD + número, exemplo: 13991636095 -->
                  <i class="mdi-communication-call prefix"></i> 
-				  <input id="input_text" type="text" maxlength="11"> <!-- minlength="11" -->
+				  <input id="input_text" type="text" name="Ped_telefone" maxlength="11"> <!-- minlength="11" -->
 				 
                   <label for="telefone">Telefone para contato</label>
                 </div>
 				
 				
-				<div class="row">
+				<div class="row" onload=""?>
                 <div class="input-field col s12 l6"> 
   
-				  <select class = "browser-default"> 
-                  <option value = "" disabled selected>Selecione o Estado (UF)</option>
-                  <option value = "1">AC</option>
-                  <option value = "2">AL</option>
-                  <option value = "3">AP</option>
-				  <option value = "4">AM</option>
-				  <option value = "5">BA</option>
-				  <option value = "6">CE</option>
-				  <option value = "7">DF</option>
-				  <option value = "8">ES</option>
-				  <option value = "9">GO</option>
-				  <option value = "10">MA</option>
-				  <option value = "11">MT</option>
-				  <option value = "12">MS</option>
-				  <option value = "13">MG</option>
-				  <option value = "14">PA</option>
-				  <option value = "15">PB</option>
-				  <option value = "16">PE</option>
-				  <option value = "17">PI</option>
-				  <option value = "18">RJ</option>
-				  <option value = "19">RN</option>
-				  <option value = "20">RS</option>
-				  <option value = "21">RO</option>
-				  <option value = "22">RR</option>
-				  <option value = "23">SC</option>
-				  <option value = "24">SP</option>
-				  <option value = "25">SE</option>
-				  <option value = "26">TO</option>			 
+				  <select name="Ped_estado" class = "browser-default" required> 
+                  <option value = ""  selected>Selecione o estado (UF)</option>		 
                </select>
                 </div>
 			  </div>
@@ -565,25 +538,26 @@ $logado = $_SESSION['nome'];
 			   
 				
 				<div class="input-field col s12 l6">
-					
-                  <input id="city" type="text">
-				  
-                  <label for="city">Digite sua cidade</label>
+					<div class="row">
+					  <select name="Ped_municipio" class = "browser-default" required> 
+	                  <option value = "" selected>Selecione a cidade</option>		 
+	               </select>
+	                </div>			  
                 </div>
 				
 				
 				  <div class="input-field col s12 l6">
-					
-                  <input id="city" type="text">
-				  
-                  <label for="city">Digite o bairro</label>
-               
+					<div class="row">
+					  <select name="Ped_bairro" class = "browser-default" required> 
+	                  <option value = "" selected>Selecione o bairro</option>		 
+	               </select>
+				  </div>
 				 </div>
 			  
 			
                 <div class="input-field col s12 l6">
-               <select class = "browser-default">
-                    <option value = "" disabled selected>Selecione uma categoria</option>
+               <select  name="Ped_categoria" class = "browser-default" required>
+                    <option value = ""  selected>Selecione uma categoria</option>
                   <option value = "1">Informática</option>
                   <option value = "2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
 				  <option value = "3">Aulas</option>
@@ -601,8 +575,8 @@ $logado = $_SESSION['nome'];
 		
 			</div> 
 			<div class="input-field col s12 l6">
-			   <input id="desc" type="text">
-               <label for="desc">Descreva seu Pedido</label>
+			  <textarea  name="Ped_descrava" rows="10" cols="40"  maxlength="500" required ></textarea>
+               <label for="descricao">Descreva seu Pedido</label>
         	   </div>
 			   
 			
@@ -625,7 +599,7 @@ $logado = $_SESSION['nome'];
 				</div> -->
 			  	  
 		</div>	
-            </form>
+    </form>
           </div>
         </div>
       </div>
@@ -640,6 +614,7 @@ $logado = $_SESSION['nome'];
       </div>
     </div>
 	 </div>
+
 
 	 
 <!-- Fim do cadastro de pedido -->
