@@ -96,9 +96,9 @@
 					<!-- Estrutura Dropdown de Anúncios (o que vem depois que você clica em anúncios/pedidos/avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='feature-dropdown' class='dropdown-content'>
-					<li><a href="meusanuncios.html">Meus anúncios</a></li>
-					<li><a href="anuncios.html">Localizar anúncios</a></li>
-					<li><a href="cadastroanuncio.html">Criar anúncio</a></li>
+				    <li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Meus anúncios</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Localizar anúncios</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Criar anúncios</a></li>
 					
 					</ul>
 					
@@ -106,16 +106,15 @@
 					<!-- Estrutura Dropdown de Pedidos - Dropdown Structure -->
 					<ul>
 					<ul id='anuncios-dropdown' class='dropdown-content'>
-					<li><a href="meuspedidos.html">Meus pedidos</a></li>
-					<li><a href="anuncios.html">Encontre um profissional</a></li>
-					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriarpedido">Criar pedido</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Meus pedidos</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Criar pedido</a></li>
 					
 					</ul>
 
 				    <!-- Estrutura Dropdown de Avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='avaliacoes-dropdown' class='dropdown-content'>
-					<li><a href="anuncios.html">Minhas Avaliações</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Minhas avaliações</a></li>
 					<li><a href="avaliacoes.html">Avaliações de Profissionais</a></li>
 					
 					</ul>
@@ -384,7 +383,7 @@
               </div>
          	  
 			   <div class="form-group">
-                        <input type="checkbox"  requeired cheked name="terms" id="terms" value="aceito" class="filled-in chk-col-pink">
+                        <input type="checkbox"  name="terms" id="terms" value="aceito" class="filled-in chk-col-pink">
                         <label for="terms">Eu li e concordo com o <a href="javascript:void(0);">termo de uso</a>.</label>
                     </div>
 
@@ -412,133 +411,6 @@
 	
 	  <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
 	  
- <form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
-    <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
-      <div class="modal-content">
-        <div class="container">
-         
-           
-          <div class="row">
-            <form class="col s12">
-              <div class="row">
-		 
-                <div class="input-field col s12 l6">
-					
-                  <input id="title"  name ="Ped_title" type="text" required>
-				  
-                  <label for="title">Titulo do Anúncio</label>
-                </div>
-                
-              <div class="row">
-
-                <div class="input-field col s12 l6">
-				<i class="mdi-communication-email prefix"></i>
-                  <input id="email" type="email"  name="Ped_email" class="validate" required>
-                  <label for="icon_email" data-error="Incorreto" data-success="Válido">E-mail</label>
-                </div>
-                
-              </div>
-             
-              <div class="row">
-                <div class="input-field col s12 l6">
-				<!-- Máximo de 11 caracteres, o suficiente para um número padrão DDD + número, exemplo: 13991636095 -->
-                 <i class="mdi-communication-call prefix"></i> 
-				  <input id="input_text" type="text" name="Ped_telefone" maxlength="11"> <!-- minlength="11" -->
-				 
-                  <label for="telefone">Telefone para contato</label>
-                </div>
-				
-				
-				<div class="row" onload=""?>
-                <div class="input-field col s12 l6"> 
-  
-				  <select name="Ped_estado" class = "browser-default" required> 
-                  <option value = ""  selected>Selecione o estado (UF)</option>		 
-               </select>
-                </div>
-			  </div>
-			   
-			   
-			  <!-- <label for="estado">Estado</label> -->
-			   
-				
-				<div class="input-field col s12 l6">
-					<div class="row">
-					  <select name="Ped_municipio" class = "browser-default" required> 
-	                  <option value = "" selected>Selecione a cidade</option>		 
-	               </select>
-	                </div>			  
-                </div>
-				
-				
-				  <div class="input-field col s12 l6">
-					<div class="row">
-					  <select name="Ped_bairro" class = "browser-default" required> 
-	                  <option value = "" selected>Selecione o bairro</option>		 
-	               </select>
-				  </div>
-				 </div>
-			  
-			
-                <div class="input-field col s12 l6">
-               <select  name="Ped_categoria" class = "browser-default" required>
-                    <option value = ""  selected>Selecione uma categoria</option>
-                  <option value = "1">Informática</option>
-                  <option value = "2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
-				  <option value = "3">Aulas</option>
-				  <option value = "4">Autos</option>
-				  <option value = "5">Consultoria</option>
-				  <option value = "6">Eventos</option>
-				  <option value = "7">Moda e Beleza</option>
-				  <option value = "8">Reformas e Serviços Gerais</option>
-				  <option value = "9">Saúde</option>
-				  <option value = "10">Serviços Domésticos</option>
-				  <option value = "11">Comércio</option>
-				  <option value = "12">Esportes e Lazer</option>
-               </select>
-			   
-		
-			</div> 
-			<div class="input-field col s12 l6">
-			  <textarea  name="Ped_descrava" rows="10" cols="40"  maxlength="500" required ></textarea>
-               <label for="descricao">Descreva seu Pedido</label>
-        	   </div>
-			   
-			
-				<div class="input-field col s12 l6">
-            <div class="file-field input-field">
-                <div class="btn blue">
-                    <span>Adicionar Imagem</span>
-                    <input type="file" name="image">
-                </div> 
-            </div>
-        </div>
-				<!-- Caminho da Imagem <div class="file-path-wrapper">
-                    <input type="text" class="file-path" placeholder="Escolha uma Imagem">
-                </div> -->
-	</div>
-			 
-			 <!--<div class="input-image-flash-on col s12 l6">
-				<button class="btn waves-effect waves-light center blue" type="submit" name="action">Adicionar Imagem
-				</button>
-				</div> -->
-			  	  
-		</div>	
-    </form>
-          </div>
-        </div>
-      </div>
-      
-	  <div class="modal-footer">
-	  <!-- btn waves-effect waves-light center -->
-	  
-	  <button class="btn blue" type="submit" name="action">Cadastrar Pedido
-		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
-		</button>
-        <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
-      </div>
-    </div>
-	 </div>
 
 	 
 <!-- Fim do cadastro de pedido -->
