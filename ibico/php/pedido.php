@@ -1,11 +1,12 @@
 <?php 
 include_once("conexao.php");
 
+$connect = mysqli_connect('localhost:3306','root','');
+	$db = mysqli_select_db($connect,'ibico');
  function criarPedido()
 {
 	//$img = $_POST[''];
-	$connect = mysqli_connect('localhost:3306','root','');
-	$db = mysqli_select_db($connect,'ibico');
+
 	$title = $_POST['Ped_title'];
 	$email = $_POST['Ped_email'];
 	$contato = $_POST['Ped_telefone'];
@@ -15,7 +16,7 @@ include_once("conexao.php");
 	$categoria = $_POST['Ped_categoria'];
 	$descri = $_POST['Ped_descrava'];
 
-	if ($query = mysqli_query($connect,"INSERT INTO pedido (dt_criacao, ds_titulo, email, ds_pedido, contato, estado, municipio, bairro, categoria) values (NOW(),'$title','$email','$descri','$contato', '$estado', '$municipio', '$bairro', '$categoria')"))
+	if ($query = mysqli_query($connect,"INSERT INTO pedido (dt_criacao, ds_titulo, email, ds_pedido, contato, estado, municipio, bairro, categoria) values (NOW(),'$title','$email','$descri','	$contato', '$estado', '$municipio', '$bairro', '$categoria')"))
 	{
 		echo"<script language='javascript' type='text/javascript'>alert('Pedido registrado com sucesso !');window.location.href='../home.php';</script>";
 	 	
