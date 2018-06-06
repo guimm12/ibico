@@ -3,21 +3,23 @@
 session_start();
 
   $email = $_POST['lg-login'];
-  $entrar = $_POST['entrar'];
+
   $senha = $_POST['lg-senha'];
 
 
   $connect = mysqli_connect('localhost:3306','root','');
   $db = mysqli_select_db($connect,'ibico');
-    if (isset($entrar)) {
+      // retornando a falta de paramentro ao ajax
+      
              
       $verifica = mysqli_query($connect,"SELECT * FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
         if (mysqli_num_rows($verifica)<=0){
-        echo"<script language='javascript' type='text/javascript'>alert('Login e/ou senha incorretos');window.location.href='../index.html#modalentrar';</script>";
+          sleep(1);
+        echo"1";
 
      
 
-          die();
+        
         }else{
         // caso o usuario sejá autenticado a sessão é criada
           
@@ -27,8 +29,9 @@ session_start();
           $_SESSION['email'] = $email;
           $_SESSION['senha'] = $senha;
           $_SESSION['nome'] = $result[0];  
-          setcookie("login",$email);      
-          echo"<script language='javascript' type='text/javascript'>alert('Bem vindo ! $result[0] ' );window.location.href='../home.php';</script>";
+          setcookie("login",$email);
+          sleep(1);      
+          echo"Bem vindo $result[0] !";
         }
-    }
+    
 ?>

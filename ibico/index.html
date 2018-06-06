@@ -1,11 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- verificando se o juery está incluso -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="theme-color" content="#2196F3">
+
+    <!-- jquey para validação do login--> 
+    <script>
+    	
+    	$(function(){
+    	var url = '../ibico/php/valida.php';
+    	function carregando()
+    	{
+    		$('.load').fadeIn('slow');
+    	}
+    		$('.formularioLogin').submit(function(){   			
+                var dados = $(this).serialize();
+                $.ajax({
+                  url:url,
+                  type: 'POST',
+                  data: dados,
+                  beforeSend: carregando,
+                  success: function(retorno){
+
+                  	if(retorno==1)
+                  	{
+                     
+                  	$('.erroSenha').html("email ou senha inválidos !");
+                  	$('.load').fadeOut('slow');
+
+                  	}else{
+
+                 alert(retorno);
+
+               
+               window.location.href ="home.php";
+               }
+                 }
+    	});
+      return false;
+     });
+});
+    </script>
+
+
+
+    <!-- jquey para registro do usuario do login--> 
+    <script>
+    	
+    	$(function(){
+    	var url = '../ibico/php/insere.php';
+    	function carregando()
+    	{
+    		$('.load').fadeIn('slow');
+    	}
+    		$('.cadastroUsuario').submit(function(){   			
+                var dados = $(this).serialize();
+                $.ajax({
+                  url:url,
+                  type: 'POST',
+                  data: dados,
+                  beforeSend: carregando,
+                  success: function(retorno){
+
+                  	if(retorno>1)
+                  	{
+                     if(retorno>2)
+                     {
+
+                     	if(retorno>3)
+                     	{
+
+                     	$('.emailCadastrado').html("");
+                     	
+                     	alert("Cadastro realizado com sucesso !");
+						window.location.href ="index.html";
+
+                     	}
+
+                     	else{
+	                    $('.emailCadastrado').html("Preencha apenas números nos campos telefone e celular");
+	                  	$('.load').fadeOut('slow');
+
+                     	}
+
+                     }
+
+                     else{
+
+                  	$('.emailCadastrado').html("É preciso aceitar os termos para continuar !");
+                  	$('.load').fadeOut('slow');
+                     }                 	
+
+                  	}else{
+
+                  	$('.emailCadastrado').html("Email já cadastrado !");
+                  	$('.load').fadeOut('slow');
+                  }
+
+                // alert(retorno);
+
+               
+              // window.location.href ="index.html#modalentrar";
+               
+                 }
+    	});
+      return false;
+     });
+});
+    </script>
     
 	
 	<!-- Titulo que fica na guia superior --> 
@@ -17,6 +122,8 @@
 
     <!-- Folha de Estilo - Stylesheet -->
     <link href="css/gallery-materialize.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- Materiais de Icone - Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -242,7 +349,7 @@
 
 <!-- Modal - Tela de Login, quando eu clicar em login ele me exibe o form. -->
 
-
+ <form name="formLogin" class="formularioLogin">
 <div id="modalentrar" class="modal modal-fixed">
       <div class="modal-content">
         <div class="container">
@@ -251,7 +358,7 @@
    	
 	<h4 class="center">Login</h4>	 
 		<div class="row">
-	    <form class="col s12 m12" method="POST" action="../ibico/php/valida.php">
+	   
 		
 		
 	<div class="row">
@@ -269,8 +376,9 @@
 		<label for="password">Senha</label> </div>
 
 	</div>
-	  
+	<center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="load"/></center>
 	  <!-- Linha azul de " Esqueceu a Senha? " no form login --> 
+	  <font color="red"<p><center><h7 class="erroSenha"></h7></center></p></font>
 	<p class="margin center-align medium-small">
         <a class="waves-effect waves-light modal-trigger" href="#modalesqueceusenha">Esqueceu a senha?</a>
           </p>
@@ -304,11 +412,6 @@
 		</div><!--col = coluna -->
 		</div><!--row = linha -->
 	 </div><!--conatiner-->
-	
-
-
-
-
 
   <!--Import jQuery before materialize.js
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
@@ -322,7 +425,7 @@
          
                 
           <div class="row">
-           <form id="cadastra" action="../ibico/php/insere.php"  method="post">
+         <form name="cdUsuario" class="cadastroUsuario">
               <div class="row">
 		 
                 <div class="input-field col s12 l6">
@@ -381,6 +484,8 @@
 
 
               </div>
+              <font color="red"<p><center><h7 class="emailCadastrado"></h7></center></p></font>
+              	<font color="green"<p><center><h7 class="sucessoCadastro"></h7></center></p></font>
          	  
 			   <div class="form-group">
                         <input type="checkbox"  name="terms" id="terms" value="aceito" class="filled-in chk-col-pink">
