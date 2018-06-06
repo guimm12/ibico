@@ -548,8 +548,9 @@ $logado = $_SESSION['nome'];
 				
 				  <div class="input-field col s12 l6">
 					<div class="row">
-					  <select name="Ped_bairro" class = "browser-default" required> 
-	                  <option value = "" selected>Selecione o bairro</option>		 
+					  <input id="title"  name ="Ped_bairro" type="text" required>
+				  
+                  <label for="title">Bairro</label>	 
 	               </select>
 				  </div>
 				 </div>

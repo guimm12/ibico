@@ -5,6 +5,7 @@
  * Thanks for MaterializeCSS.com
  */
 
+.load {display:none; margin-left:2%; margin-bottom:0px;}
 .default_color{background-color: #2196F3 !important}
 
 .default_color_text{color: #2196F3 !important}
