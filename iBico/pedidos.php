@@ -372,7 +372,7 @@ $logado = $_SESSION['nome'];
 				  		$sql_code = mysqli_query($connect,"SELECT Id, Nome, UF FROM Estado order by Nome ASC") or die("erro ao selecionar");
 				  		foreach ($sql_code as $estado) 
 				  		{
-				  	    $estadoUTF = utf8_decode($estado['Nome']);
+				  	    $estadoUTF = utf8_encode($estado['Nome']);
 				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
 
 				  		}
@@ -395,7 +395,8 @@ $logado = $_SESSION['nome'];
 				<div class="input-field col s12 l6">
 					<div class="row">
 				 <select name="Ped_municipio" id="municipios" class = "browser-default">
-
+                  <option>Município</option>
+              
 				 <script>
 				 	
 						$("#estado").on("change", function(){

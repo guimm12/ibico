@@ -3,7 +3,7 @@
 sleep(1);
 
 
-
+header('Content-Type: text/html; charset=utf-8');
 $connect = mysqli_connect('localhost:3306','root','');
 $db = mysqli_select_db($connect,'ibico');
 
@@ -19,7 +19,7 @@ $pegaMunicipio = mysqli_query($connect,"SELECT Nome FROM Municipio WHERE UF = '"
 
 foreach ($pegaMunicipio as $Municipio) 
 {
-$municiopUTF = utf8_decode($Municipio['Nome']);
+$municiopUTF = utf8_encode($Municipio['Nome']);
 	echo '<option>'.$municiopUTF.'</option>';# code...
 
 
