@@ -9,7 +9,7 @@ if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == fals
    header('location:../ibico/index.html');
     }
 
-$logado = $_SESSION['nome'];
+$logado = $_SESSION['Nome'];
 
 ?>
 
@@ -448,25 +448,25 @@ $logado = $_SESSION['nome'];
 				 
 				 <select name="Ped_categoria" class="browser-default" required="">
                     <option value="" selected="">Selecione uma categoria</option>
-                  <option value="1">Informática</option>
-                  <option value="2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
-				  <option value="3">Aulas</option>
-				  <option value="4">Autos</option>
-				  <option value="5">Consultoria</option>
-				  <option value="6">Eventos</option>
-				  <option value="7">Moda e Beleza</option>
-				  <option value="8">Reformas e Serviços Gerais</option>
-				  <option value="9">Saúde</option>
-				  <option value="10">Serviços Domésticos</option>
-				  <option value="11">Comércio</option>
-				  <option value="12">Esportes e Lazer</option>
+                  <option value="Informática">Informática</option>
+                  <option value="Aparelhos Eletrônicos e Eletrodomésticos">Aparelhos Eletrônicos e Eletrodomésticos</option>            
+				  <option value="Aulas">Aulas</option>
+				  <option value="Autos">Autos</option>
+				  <option value="Consultoria">Consultoria</option>
+				  <option value="Eventos">Eventos</option>
+				  <option value="Moda e Beleza">Moda e Beleza</option>
+				  <option value="Reformas e Serviços Gerais">Reformas e Serviços Gerais</option>
+				  <option value="Saúde">Saúde</option>
+				  <option value="1Serviços Domésticos">Serviços Domésticos</option>
+				  <option value="Comércio">Comércio</option>
+				  <option value="Esportes e Lazer">Esportes e Lazer</option>
                </select>
 			  
 			
                
 			
 			  <div class="input-field col s12 16">
-            <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
+            <textarea id="textarea2" class="materialize-textarea" name="Ped_descrava" data-length="120"></textarea>
             <label for="textarea2">Descreva seu pedido</label>
           </div>
         	  

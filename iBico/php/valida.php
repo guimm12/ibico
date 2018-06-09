@@ -24,16 +24,15 @@ session_start();
         // caso o usuario sejá autenticado a sessão é criada
           
 
-           $verifica2 = mysqli_query($connect,"SELECT nome, telefone, celular FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
+           $verifica2 = mysqli_query($connect,"SELECT cd_usuario, Nome FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
           $result=mysqli_fetch_row($verifica2);
           $_SESSION['email'] = $email;
           $_SESSION['senha'] = $senha;
-          $_SESSION['nome'] = $result[0]; 
-          $_SESSION['telefone'] = $result[1];
-          $_SESSION['telefone']= $result[2];
+          $_SESSION['cd_usuario'] = $result[0]; 
+          $_SESSION['Nome'] = $result[1];
           setcookie("login",$email);
           sleep(1);      
-          echo"Bem vindo $result[0]!";
+          echo"Bem vindo $result[1]!";
         }
     
 ?>

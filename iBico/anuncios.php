@@ -9,7 +9,7 @@ if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == fals
    header('location:../ibico/index.html');
     }
 
-$logado = $_SESSION['nome'];
+$logado = $_SESSION['Nome'];
 
 ?>
 
@@ -490,7 +490,7 @@ $logado = $_SESSION['nome'];
 			  <div class="input-field col s12 16">
             <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
             <label for="textarea2">Descreva seu anúncio</label>
-            <h7><b>Exemplo:</b> formação acadêmica, certificações, tempo de experiência</h7>
+            <h7><b>Exemplo:</b> formação acadêmica, certificações, tempo de experiência.</h7>
 
           </div>
 

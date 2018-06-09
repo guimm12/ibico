@@ -1,31 +1,35 @@
 <?php 
+session_start();
 include_once("conexao.php");
 
-$connect = mysqli_connect('localhost:3306','root','');
-	$db = mysqli_select_db($connect,'ibico');
+
+
+
+
  function criarPedido()
 {
+$connect = mysqli_connect('localhost:3306','root','');
+$db = mysqli_select_db($connect,'ibico');
 	//$img = $_POST[''];
-
+   
+    $cd=$_SESSION['cd_usuario'];
 	$title = $_POST['Ped_title'];
-	$email = $_POST['Ped_email'];
-	$contato = $_POST['Ped_telefone'];
 	$estado = $_POST['Ped_estado'];
 	$municipio = $_POST['Ped_municipio'];
 	$bairro = $_POST['Ped_bairro'];
 	$categoria = $_POST['Ped_categoria'];
 	$descri = $_POST['Ped_descrava'];
 
-	if ($query = mysqli_query($connect,"INSERT INTO pedido (dt_criacao, ds_titulo, email, ds_pedido, contato, estado, municipio, bairro, categoria) values (NOW(),'$title','$email','$descri','	$contato', '$estado', '$municipio', '$bairro', '$categoria')"))
+	if ($query = mysqli_query($connect,"INSERT INTO pedido (dt_criacao, ds_titulo,  ds_pedido, estado, municipio, bairro, categoria, FK_cd_cliente) values (NOW(),'$title','$descri','$estado', '$municipio', '$bairro', '$categoria','$cd')"))
 	{
-		echo"<script language='javascript' type='text/javascript'>alert('Pedido registrado com sucesso !');window.location.href='../home.php';</script>";
+		echo"<script language='javascript' type='text/javascript'>alert('Pedido registrado com sucesso $email !');window.location.href='../pedidos.php';</script>";
 	 	
 	 }
 
 	 else
 	 {
 
-	 	echo"<script language='javascript' type='text/javascript'>alert('Erro ao tentar registrar o pedido por favor tente novamente !');window.location.href='../home.php';</script>";
+	 	echo"<script language='javascript' type='text/javascript'>alert('Erro ao tentar registrar o pedido por favor tente novamente !');window.location.href='../pedidos.php';</script>";
 	 }
 
 

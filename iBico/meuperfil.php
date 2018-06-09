@@ -9,7 +9,7 @@ if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == fals
    header('location:../ibico/index.html');
     }
 
-$logado = $_SESSION['nome'];
+$logado = $_SESSION['Nome'];
 
 ?>
 
