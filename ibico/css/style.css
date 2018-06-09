@@ -5,6 +5,8 @@
  * Thanks for MaterializeCSS.com
  */
 
+.loadCadastroPedido{display:none; margin-left:2%; margin-bottom:0px;}
+.loadCadastro {display:none; margin-left:2%; margin-bottom:0px;}
 .load {display:none; margin-left:2%; margin-bottom:0px;}
 .default_color{background-color: #2196F3 !important}
 
