@@ -13,7 +13,7 @@ create table tb_usuario
 	sx_sexo varchar(10),
 	cd_senha int(15),
 	
-	cd_usuario int,
+
 	nm_formacao varchar(100),
 	nm_area_atuacao varchar(100),
 	ds_obs varchar(300),

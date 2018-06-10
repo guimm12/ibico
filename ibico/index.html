@@ -25,9 +25,8 @@
                   beforeSend: carregando,
                   success: function(retorno){
 
-                  	if(retorno==1)
-                  	{
-                     
+                    if(retorno==1) 
+                    {                   
                   	$('.erroSenha').html("email ou senha inválidos !");
                   	$('.load').fadeOut('slow');
 
@@ -36,9 +35,10 @@
                  alert(retorno);
 
                
-               window.location.href ="anuncios.php";
+                 window.location.href ="anuncios.php";
                }
                  }
+                  
     	});
       return false;
      });
@@ -51,7 +51,7 @@
     <script>
     	
     	$(function(){
-    	var url = '../ibico/php/insere.php';
+    	var url = '../ibico/php/insere_usuario.php';
     	function carregando()
     	{
     		$('.loadCadastro').fadeIn('slow');

@@ -1,31 +1,38 @@
 
-<?php 
+<?php
 session_start();
+include_once("conexao_class.php");
 
   $email = $_POST['lg-login'];
 
   $senha = $_POST['lg-senha'];
 
 
-  $connect = mysqli_connect('localhost:3306','root','');
-  $db = mysqli_select_db($connect,'ibico');
-      // retornando a falta de paramentro ao ajax
+  $My = new MySQLiConnection();// conecta-se automaticamente ao servidor MySQL
+  $verifica = "SELECT * FROM tb_usuario WHERE nm_email = '$email' AND cd_senha = '$senha'";
+
+// a conexão é fechada automaticamente no fim do script.
+      // retornando a falta de paramentro ao ajax      
+
+      $result = $My->query($verifica) or die(mysql_error());
+           
       
-             
-      $verifica = mysqli_query($connect,"SELECT * FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
-        if (mysqli_num_rows($verifica)<=0){
+        if (mysqli_num_rows($result)<=0)
+        {
           sleep(1);
-        echo"1";
+          echo"1";
 
      
 
         
-        }else{
+        }
+
+        else{
         // caso o usuario sejá autenticado a sessão é criada
           
 
-           $verifica2 = mysqli_query($connect,"SELECT cd_usuario, Nome FROM usuario WHERE email = '$email' AND senha = '$senha'") or die("erro ao selecionar");
-          $result=mysqli_fetch_row($verifica2);
+          $verifica2 = "SELECT cd_usuario, Nome FROM usuario WHERE email = '$email' AND senha = '$senha'";
+          $result= $My->query($verifica2);
           $_SESSION['email'] = $email;
           $_SESSION['senha'] = $senha;
           $_SESSION['cd_usuario'] = $result[0]; 
@@ -34,5 +41,7 @@ session_start();
           sleep(1);      
           echo"Bem vindo $result[1]!";
         }
-    
+      
+
+       
 ?>
