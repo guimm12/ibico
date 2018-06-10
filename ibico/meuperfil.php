@@ -15,7 +15,7 @@ $logado = $_SESSION['Nome'];
 
 
 
-
+	
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="theme-color" content="#2196F3">
@@ -35,7 +35,8 @@ $logado = $_SESSION['Nome'];
 	
 			<!-- CSS  -->
 			<link href="min/plugin-min.css" type="text/css" rel="stylesheet">
-			<link href="min/custom-min.css" type="text/css" rel="stylesheet" >
+			<link href="min/custom-min.css" type="text/css" rel="stylesheet">
+			<script src="js/funcoes.js"></script>
 		</head>
 
 
@@ -155,20 +156,53 @@ $logado = $_SESSION['Nome'];
 		  <div class="row">
 				<div class="input-field col s12 l6">
 				
+				
 				<!-- <img class="user.png" src="cool_pic.jpg"> -->
 				
 				<img src="img/user1.png" widht="200px" height="170px"></a>
+				
+				
 					<div class="file-field input-field">
 						<div class="btn blue">
 						<span>Editar Imagem</span>
 						<input type="file" name="image">
 					</div> 
+					
 					</div>
-				</div>
+					
+			<div class="input-field col s12 m6 12">
+					
+			
+		    <a href="javascript:void(0)" onclick="Avaliar(1)">
+			<img src="img/star0.png" id="s1"></a>
+
+			<a href="javascript:void(0)" onclick="Avaliar(2)">
+			<img src="img/star0.png" id="s2"></a>
+
+			<a href="javascript:void(0)" onclick="Avaliar(3)">
+			<img src="img/star0.png" id="s3"></a>
+
+			<a href="javascript:void(0)" onclick="Avaliar(4)">
+			<img src="img/star0.png" id="s4"></a>
+
+			<a href="javascript:void(0)" onclick="Avaliar(5)">
+
+			<img src="img/star0.png" id="s5"></a>
+					
+		     <h5 class="header text_h2">Avaliação: <a id="rating" class="center header text_h2">0<a/></h5>
+					
+			</div>
+			
+			
+			</div>
+				
+				
 				
                 </div>
 				
-          <div class="row">
+			
+			<div class="row">
+
          <form name="cdUsuario" class="cadastroUsuario">
               <div class="row">
                 <div class="input-field col s12 l6">
@@ -280,7 +314,7 @@ $logado = $_SESSION['Nome'];
 		
 					</button>
 	
-
+	
 					<!-- Loader AJAX --> 
 					<font color="red"<p><center><h7 class="emailCadastrado"></h7></center></p></font>
               	<font color="green"<p><center><h7 class="sucessoCadastro"></h7></center></p></font>
