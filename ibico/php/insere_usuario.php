@@ -26,20 +26,22 @@ $My = new MySQLiConnection();// conecta-se automaticamente ao servidor MySQL
 
       $result = $My->query($verifica) or die(mysql_error());
            
-      
+      var_dump(mysqli_num_rows($result));
+
         if (mysqli_num_rows($result)<=0)
       {
  			if(isset($_POST['terms']))
  				{
 
-				$obj_usu->AddUsuario();
+				$result2 = $obj_usu->AddUsuario();
+				echo"$result2";
 				}
 				else{
 				// retornando ao ajax dados inválidos
 	        		  echo"3";
 		   		 	}
       }
- 		}
+ 		
 
 	else{
 	// retornando ao ajax email já cadastrado

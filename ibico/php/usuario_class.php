@@ -1,7 +1,7 @@
 <?php
-include_once("conexao_class");
+include_once("conexao_class.php");
 
-  $My = new MySQLiConnection();// conecta-se automaticamente ao servidor MySQL
+ // conecta-se automaticamente ao servidor MySQL
 
  	class usuario{
 
@@ -32,6 +32,7 @@ include_once("conexao_class");
 
  		public function AddUsuario()
  		{
+ 			 $My = new MySQLiConnection();
 				if(isset($this->nm_nome,$this->nm_sobrenome,$this->cd_telefone_fixo,$this->cd_telefone_movel,$this->nm_email,$this->sx_sexo,$this->cd_senha) AND is_numeric($this->cd_telefone_movel) AND is_numeric($this->cd_telefone_fixo))
 					{
 
