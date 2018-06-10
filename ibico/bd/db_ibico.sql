@@ -4,7 +4,7 @@ drop database db_ibico;
 
 create table tb_usuario
 (
-	cd_usuario int not null, 
+	cd_usuario int primary key auto_increment, 
 	nm_nome varchar(100),
 	nm_sobrenome varchar(100),
 	cd_telefone_fixo int(12),
@@ -22,12 +22,7 @@ create table tb_usuario
 	cd_cidade int,
 	cd_bairro int,
 	
-	constraint pk_usuario
-	primary key (cd_usuario),
 	
-	constraint fk_usuario
-	foreign key (cd_usuario)
-	references tb_usuario (cd_usuario),
 	constraint fk_estado
 	foreign key (cd_estado)
 	references tb_estado (cd_estado),
