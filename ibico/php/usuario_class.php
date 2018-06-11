@@ -13,6 +13,9 @@ include_once("conexao_class.php");
  		private $nm_email;
  		private $sx_sexo;
  		private $cd_senha;
+ 		private $nm_estado;
+ 		private $nm_cidade;
+ 		private $nm_bairro;
 
 
 
@@ -26,6 +29,7 @@ include_once("conexao_class.php");
  			$this->nm_email=$email;
  			$this->sx_sexo=$sexo;
  			$this->cd_senha=$senha;
+ 			
  		}
 
 
@@ -36,7 +40,7 @@ include_once("conexao_class.php");
 				if(isset($this->nm_nome,$this->nm_sobrenome,$this->cd_telefone_fixo,$this->cd_telefone_movel,$this->nm_email,$this->sx_sexo,$this->cd_senha) AND is_numeric($this->cd_telefone_movel) AND is_numeric($this->cd_telefone_fixo))
 					{
 
-						$sql_code = "INSERT INTO tb_usuario(nm_nome,nm_sobrenome,cd_telefone_fixo,cd_telefone_movel,nm_email,sx_sexo,cd_senha) VALUES('$this->nm_nome','$this->nm_sobrenome','$this->cd_telefone_fixo','$this->cd_telefone_movel','$this->nm_email','$this->sx_sexo','$this->cd_senha')";
+						$sql_code = "INSERT INTO tb_usuario(nm_nome,nm_sobrenome,cd_telefone_fixo,cd_telefone_movel,nm_email,sx_sexo,cd_senha,nm_estado,nm_cidade,nm_bairro) VALUES('$this->nm_nome','$this->nm_sobrenome','$this->cd_telefone_fixo','$this->cd_telefone_movel','$this->nm_email','$this->sx_sexo','$this->cd_senha')";
 						$result = $My->query($sql_code) or die(mysql_error());
 						
 						// retornando ao sucesso no registro
