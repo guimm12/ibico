@@ -99,8 +99,9 @@ $logado = $_SESSION['Nome'];
 				<!-- Estrutura Dropdown de Anúncios (o que vem depois que você clica em anúncios/pedidos/avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='feature-dropdown' class='dropdown-content'>
-					<li><a href="meusanuncios.php">Meus anúncios</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriaranuncio">Criar anúncios</a></li>
 					<li><a href="anuncios.php">Encontre anúncios</a></li>
+					<li><a href="meusanuncios.php">Meus anúncios</a></li>
 					
 					
 					</ul>
@@ -109,8 +110,9 @@ $logado = $_SESSION['Nome'];
 					<!-- Estrutura Dropdown de Pedidos - Dropdown Structure -->
 					<ul>
 					<ul id='anuncios-dropdown' class='dropdown-content'>
-					<li><a href="meuspedidos.php">Meus pedidos</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriarpedido">Criar pedido</a></li>
 					<li><a href="pedidos.php">Encontre pedidos</a></li>
+					<li><a href="meuspedidos.php">Meus pedidos</a></li>
 										
 					</ul>
 					
@@ -360,8 +362,9 @@ $logado = $_SESSION['Nome'];
 
 
  <!-- Estrutura Modal - EXIBE O CADASTRO DE ANÚNCIO  -->
+  <!-- Criando Modais  -->
  
-<form class="col s12" name=criaAnuncio action="../ibico/php/insere_pedido.php" method="post"> 
+<form class="col s12" name=criaAnuncio action="" method="post"> 
     <div id="modalcriaranuncio" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
       <div class="modal-content">
         <div class="container">
@@ -391,7 +394,7 @@ $logado = $_SESSION['Nome'];
 				<div class="row" onload=""?>
                 <div class="input-field col s12 l6"> 
   
-				  <select name="Ped_estado" id ="estado" class = "browser-default"> 
+				  <select name="Ped_estado" id ="estado_an" class = "browser-default"> 
 
 				 	<?php
 				  	
@@ -418,39 +421,40 @@ $logado = $_SESSION['Nome'];
 				
 				<div class="input-field col s12 l6">
 					<div class="row">
-				 <select name="Ped_municipio" id="municipios" class = "browser-default">
+				 <select name="Ped_municipio" id="municipios_an" class = "browser-default">
 
 				 <script>
 				 	
-						$("#estado").on("change", function(){
+						$("#estado_an").on("change", function(){
 
 
-						var idEstado = $("#estado").val();
+						var idEstado = $("#estado_an").val();
 						$.ajax({
 							url:'../ibico/php/carregaMunicipios.php',	
 							type: 'POST',
 							data: {Nome : idEstado},
 							beforeSend: function(){
 								
-								$("#municipios").html("Carregando..");
+								$("#municipios_an").html("Carregando..");
 							},
 							success: function(retorno)
 							{
 								
 								
 
-								$("#municipios").html(retorno);
+								$("#municipios_an").html(retorno);
 							},
 							error: function(retornoErro)
 							{
 								
 								 
-								$("#municipios").html("Houve um erro ao carregar !");
+								$("#municipios_an").html("Houve um erro ao carregar !");
 							}
 						});
 
 						});
 				</script>
+			  
 			  
 				
 					  <!-- <select name="Ped_municipio" class = "browser-default" required> -->
@@ -522,6 +526,9 @@ $logado = $_SESSION['Nome'];
 			  	  
 		</div>	
     </form>
+    <!--Criando pedidos--!>
+
+
           </div>
         </div>
       </div>
@@ -538,9 +545,181 @@ $logado = $_SESSION['Nome'];
     </div>
 	 </div>
 
+	 <form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
+    <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
+      <div class="modal-content">
+        <div class="container">
+         
+           
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+		 
+                <div class="input-field col s12">
+					
+                  <input id="title"  name ="Ped_title" type="text" required>
+				  
+                  <label for="title">Titulo do pedido</label>
+                </div>
+                
+             
+              <div class="row">
+                <div class="input-field col s12 16">
+				 <select name="Ped_estado" id ="estado" class = "browser-default"> 
+
+				  <?php
+				  	
+				  		include_once("../ibico/php/conexao_class.php");
+
+
+  						$My = new MySQLiConnection();
+				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";
+				  		$result = $My->query($sql_code) or die(mysql_error());
+				  		foreach ($result as $estado) 
+				  		{
+				  	    $estadoUTF = utf8_encode($estado['Nome']);
+				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
+
+				  		}
+				  	?>   
+               </select>
+                </div>
+				
+				
+				<div class="row" onload="">
+                <div class="input-field col s12 16"> 
+  
+				 
+                </div>
+			  </div>
+			   
+			   
+			  <!-- <label for="estado">Estado</label> -->
+			   
+				
+				<div class="input-field col s12 l6">
+					<div class="row">
+				 <select name="Ped_municipio" id="municipios" class = "browser-default">
+                  <option>Município</option>
+              
+				 <script>
+				 	
+						$("#estado").on("change", function(){
+
+
+						var idEstado = $("#estado").val();
+						$.ajax({
+							url:'../ibico/php/carregaMunicipios.php',	
+							type: 'POST',
+							data: {Nome : idEstado},
+							beforeSend: function(){
+								
+								$("#municipios").html("Carregando..");
+							},
+							success: function(retorno)
+							{
+								
+								
+
+								$("#municipios").html(retorno);
+							},
+							error: function(retornoErro)
+							{
+								
+								 
+								$("#municipios").html("Houve um erro ao carregar !");
+							}
+						});
+
+						});
+				</script>
+			  
+				
+					  <!-- <select name="Ped_municipio" class = "browser-default" required> -->
+	                <!--   <option value = "" selected>Selecione a cidade</option>	-->	 
+	               </select>
+	                </div>			  
+                </div>
+				
+				
+				  <div class="input-field col s12 l6">
+					
+					  <input id="title"  name ="Ped_bairro" type="text" required>
+				  
+                  <label for="title">Bairro</label>	 
+	               </select>
+				  
+				 </div>
+				 
+				 <select name="Ped_categoria" class="browser-default" required="">
+                    <option value="" selected="">Selecione uma categoria</option>
+                  <option value="Informática">Informática</option>
+                  <option value="Aparelhos Eletrônicos e Eletrodomésticos">Aparelhos Eletrônicos e Eletrodomésticos</option>            
+				  <option value="Aulas">Aulas</option>
+				  <option value="Autos">Autos</option>
+				  <option value="Consultoria">Consultoria</option>
+				  <option value="Eventos">Eventos</option>
+				  <option value="Moda e Beleza">Moda e Beleza</option>
+				  <option value="Reformas e Serviços Gerais">Reformas e Serviços Gerais</option>
+				  <option value="Saúde">Saúde</option>
+				  <option value="1Serviços Domésticos">Serviços Domésticos</option>
+				  <option value="Comércio">Comércio</option>
+				  <option value="Esportes e Lazer">Esportes e Lazer</option>
+               </select>
+			  
+			
+               
+			
+			  <div class="input-field col s12 16">
+            <textarea id="textarea2" class="materialize-textarea" name="Ped_descrava" data-length="120"></textarea>
+            <label for="textarea2">Descreva seu pedido</label>
+          </div>
+        	  
+			 
+			
+				<div class="input-field col s12 l6">
+            <div class="file-field input-field">
+                <div class="btn blue">
+                    <span>Adicionar Imagem</span>
+                    <input type="file" name="image">
+                </div> 
+            </div>
+        </div>
+
+				<!-- Caminho da Imagem <div class="file-path-wrapper">
+                    <input type="text" class="file-path" placeholder="Escolha uma Imagem">
+                </div> -->
+	</div>
+	    
+			 
+			 <!--<div class="input-image-flash-on col s12 l6">
+				<button class="btn waves-effect waves-light center blue" type="submit" name="action">Adicionar Imagem
+				</button>
+				</div> -->
+			  	  
+		</div>	
+    </form>
+          </div>
+        </div>
+      </div>
+
+
+      
+      
+	  <div class="modal-footer">
+	  <!-- btn waves-effect waves-light center -->
+	  
+	  <button class="btn blue" type="submit" name="action">Criar Pedido
+		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
+		</button>
+        <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
+      </div>
+    </div>
+	 </div>
+
 
 	 
-<!-- Fim do cadastro de anúncio -->
+<!-- Fim das modais -->
 	
     
 	
