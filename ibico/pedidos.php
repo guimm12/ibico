@@ -365,9 +365,10 @@ $logado = $_SESSION['Nome'];
                 <div class="input-field col s12 16">
 				 <select name="Ped_estado" id ="estado" class = "browser-default"> 
 
-				  	<?php
+				  <?php
 				  	
-				  		include_once("../ibico/php/conexao.php");
+				  		include_once("../ibico/php/conexao_class.php");
+
 
   						$My = new MySQLiConnection();
 				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";

@@ -395,7 +395,8 @@ $logado = $_SESSION['Nome'];
 
 				 	<?php
 				  	
-				  		include_once("../ibico/php/conexao.php");
+				  		include_once("../ibico/php/conexao_class.php");
+
 
   						$My = new MySQLiConnection();
 				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";

@@ -9,7 +9,7 @@ if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == fals
    header('location:../ibico/index.html');
     }
 
-$logado = $_SESSION['nome'];
+$logado = $_SESSION['Nome'];
 
 ?>
 
@@ -100,8 +100,8 @@ $logado = $_SESSION['nome'];
 				<!-- Estrutura Dropdown de Anúncios (o que vem depois que você clica em anúncios/pedidos/avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='feature-dropdown' class='dropdown-content'>
-					<li><a href="meusanuncios.html">Meus anúncios</a></li>
-					<li><a href="anuncios.html">Encontre anúncios</a></li>
+					<li><a href="meusanuncios.php">Meus anúncios</a></li>
+					<li><a href="anuncios.php">Encontre anúncios</a></li>
 					
 					
 					</ul>
@@ -110,8 +110,8 @@ $logado = $_SESSION['nome'];
 					<!-- Estrutura Dropdown de Pedidos - Dropdown Structure -->
 					<ul>
 					<ul id='anuncios-dropdown' class='dropdown-content'>
-					<li><a href="meuspedidos.html">Meus pedidos</a></li>
-					<li><a href="anuncios.html">Encontre pedidos</a></li>
+					<li><a href="meuspedidos.php">Meus pedidos</a></li>
+					<li><a href="anuncios.php">Encontre pedidos</a></li>
 										
 					</ul>
 					
@@ -119,8 +119,8 @@ $logado = $_SESSION['nome'];
 						<!-- Estrutura Dropdown de Avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='avaliacoes-dropdown' class='dropdown-content'>
-					<li><a href="anuncios.html">Minhas Avaliações</a></li>
-					<li><a href="avaliacoes.html">Avaliações de Profissionais</a></li>
+					<li><a href="meuperfil.php">Minhas Avaliações</a></li>
+					<li><a href="avaliacoes.php">Avaliações de Profissionais</a></li>
 					
 					</ul>
 
