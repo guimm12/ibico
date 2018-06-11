@@ -393,18 +393,20 @@ $logado = $_SESSION['Nome'];
   
 				  <select name="Ped_estado" id ="estado" class = "browser-default"> 
 
-				  		<?php
+				 	<?php
 				  	
-				  		$connect = mysqli_connect('localhost:3306','root','');
- 						$db = mysqli_select_db($connect,'ibico');
-				  		$sql_code = mysqli_query($connect,"SELECT Id, Nome, UF FROM Estado order by Nome ASC") or die("erro ao selecionar");
-				  		foreach ($sql_code as $estado) 
+				  		include_once("../ibico/php/conexao.php");
+
+  						$My = new MySQLiConnection();
+				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";
+				  		$result = $My->query($sql_code) or die(mysql_error());
+				  		foreach ($result as $estado) 
 				  		{
 				  	    $estadoUTF = utf8_encode($estado['Nome']);
 				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
 
 				  		}
-				  	?>  
+				  	?>   
                </select>
                 </div>
 			  </div>

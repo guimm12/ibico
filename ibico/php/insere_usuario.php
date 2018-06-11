@@ -26,11 +26,11 @@ $My = new MySQLiConnection();// conecta-se automaticamente ao servidor MySQL
 
       $result = $My->query($verifica) or die(mysql_error());
            
-      var_dump(mysqli_num_rows($result));
+
 
         if (mysqli_num_rows($result)<=0)
       {
- 			if(isset($_POST['terms']))
+ 			if (isset($_POST["terms"]) && !empty($_POST["terms"]))
  				{
 
 				$result2 = $obj_usu->AddUsuario();
