@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>	
 <?php
 session_start();
 if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == false))
@@ -13,13 +14,54 @@ $logado = $_SESSION['Nome'];
 
 ?>
 
+ <!-- adicionando pedido -->
+<script>
+    	
+    	$(function(){
+    	var url = '../ibico/php/insere_pedido.php';
+    	function carregando()
+    	{
+    		$('.loadPedido').fadeIn('slow');
+    	}
+    		$('.criaPedidoAjax').submit(function(){   			
+                var dados = $(this).serialize();
+                $.ajax({
+                  url:url,
+                  type: 'POST',
+                  data: dados,
+                  beforeSend: carregando,
+                  success: function(retorno){
+           
+                  	if(retorno==1)
+                  	{
+
+                  		$('.erroPedido').html("Erro ao tentar registrar o pedido, por favor tente mais tarde");
+                  		$('.loadPedido').fadeOut('slow');
+                  	}
+                  	else{
+
+                 alert("Pedidos realizado com sucesso !");
+                   window.location.href ="pedidos.php";
+            		 }
+
+               
+                 
+               }
+                  
+    	});
+      return false;
+     });
+});
+    </script>
 
 
 
+
+    <link href="css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="theme-color" content="#2196F3">
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
 	<!-- Titulo que fica na guia superior --> 
 	<title>IBico Solutions</title>
 
@@ -345,7 +387,7 @@ $logado = $_SESSION['Nome'];
 
 
  <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
-<form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
+<form  name="criaPedido" class="criaPedidoAjax"> 
     <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
       <div class="modal-content">
         <div class="container">
@@ -474,7 +516,8 @@ $logado = $_SESSION['Nome'];
             <label for="textarea2">Descreva seu pedido</label>
           </div>
         	  
-			 
+			  <center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="loadPedido"/></center>
+         <font color="red"<p><center><h7 class="erroPedido"></h7></center></p></font>
 			
 				<div class="input-field col s12 l6">
             <div class="file-field input-field">
@@ -484,6 +527,7 @@ $logado = $_SESSION['Nome'];
                 </div> 
             </div>
         </div>
+        
 
 				<!-- Caminho da Imagem <div class="file-path-wrapper">
                     <input type="text" class="file-path" placeholder="Escolha uma Imagem">
@@ -497,7 +541,7 @@ $logado = $_SESSION['Nome'];
 				</div> -->
 			  	  
 		</div>	
-    </form>
+    
           </div>
         </div>
       </div>
@@ -511,6 +555,7 @@ $logado = $_SESSION['Nome'];
 	  <button class="btn blue" type="submit" name="action">Criar Pedido
 		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
 		</button>
+		</form>
         <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
       </div>
     </div>
@@ -678,7 +723,7 @@ $logado = $_SESSION['Nome'];
 				</div> -->
 			  	  
 		</div>	
-    </form>
+    
     <!--Criando pedidos--!>
 
 
@@ -693,10 +738,13 @@ $logado = $_SESSION['Nome'];
 	  <button class="btn blue" type="submit" name="action">Criar Anúncio
 		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
 		</button>
+		</form>
+
         <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
       </div>
     </div>
 	 </div>
+	 
 
 
 	 

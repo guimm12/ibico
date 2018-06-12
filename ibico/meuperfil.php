@@ -9,9 +9,7 @@ if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == fals
     
    header('location:../ibico/index.html');
     }
-
 $logado = $_SESSION['Nome'];
-
 ?>
 
 
@@ -114,6 +112,7 @@ $logado = $_SESSION['Nome'];
 					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriarpedido">Criar pedido</a></li>
 					<li><a href="pedidos.php">Encontre pedidos</a></li>
 					<li><a href="meuspedidos.php">Meus pedidos</a></li>
+										
 
 					<!--<li><a class="modal-trigger" type="submit" name="action" href="#modalcriarpedido">Criar pedido</a></li> -->
 					
@@ -305,6 +304,7 @@ $logado = $_SESSION['Nome'];
 		
 
 
+ <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
  <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
  <!-- Criando Modais  -->
  
@@ -660,6 +660,9 @@ $logado = $_SESSION['Nome'];
       </div>
     </div>
 	 </div>
+
+
+
 
 
 	 

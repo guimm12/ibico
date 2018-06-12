@@ -1,50 +1,34 @@
-<?php
-include_once("conexao_class.php");
-include_once("usuario_class.php");
-
-
-$My = new MySQLiConnection();
-
-
-$nome = $_POST['nome'];
-$sobrenome = $_POST['sobrenome'];
-$email = $_POST['email'];
-$sexo = $_POST['sexo'];
-$telefone_fixo = $_POST['telefone'];
-$telefone_movel = $_POST['celular'];
-$senha = $_POST['senha'];
-
-$obj_usu = new usuario($nome,$sobrenome,$telefone_fixo,$telefone_movel,$email,$sexo,$senha);
-
-
-
-$My = new MySQLiConnection();// conecta-se automaticamente ao servidor MySQL
-  $verifica = "SELECT * FROM tb_usuario WHERE nm_email = '$email'";
-
-// a conexão é fechada automaticamente no fim do script.
-      // retornando a falta de paramentro ao ajax      
-
-      $result = $My->query($verifica) or die(mysql_error());
-           
-
-
-        if (mysqli_num_rows($result)<=0)
-      {
- 			if (isset($_POST["terms"]) && !empty($_POST["terms"]))
- 				{
-
-				$result2 = $obj_usu->AddUsuario();
-				echo"$result2";
-				}
-				else{
+<?php 
+	require_once("conexao.php");
+	$nome = $_POST['nome'];
+	$sobrenome = $_POST['sobrenome'];
+	$email = $_POST['email'];
+	$sexo = $_POST['sexo'];
+	$telefone = $_POST['telefone'];
+	$celular = $_POST['celular'];
+	$senha = $_POST['senha'];
+  $sql_verif = mysqli_query($conexao,"SELECT * FROM usuario WHERE email = '$email'") or die("erro ao selecionar");
+ if(mysqli_num_rows($sql_verif)<=0)
+ 	if(isset($_POST['terms']))
+ 	{
+	if(isset($nome, $sobrenome,$email,$sexo,$telefone,$celular,$senha) AND is_numeric($telefone) AND is_numeric($celular))
+		{
+			$sql_code = "INSERT INTO tb_usuario(nm_nome,nm_sobrenome,nm_email,sx_sexo,cd_telefone_fixo,cd_telefone_movel,cd_senha) VALUES('$nome','$sobrenome','$email','$sexo','$telefone','$celular','$senha')";
+			$conexao->query($sql_code);
+			// retornando ao sucesso no registro
+			echo"4";
+			}
+			else{
 				// retornando ao ajax dados inválidos
-	        		  echo"3";
-		   		 	}
-      }
- 		
-
-	else{
+	          echo"3";
+		    }
+	    }
+	    else{
+	    	// retornando ao ajax checkd false
+	    	   echo"2";
+	    }
+else{
 	// retornando ao ajax email já cadastrado
-  		 echo"1";
-  		 }
+   echo"1";
+    }
 ?>
