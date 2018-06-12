@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>	
 <?php
 session_start();
 if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == false))
@@ -9,14 +10,55 @@ if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == fals
    header('location:../ibico/index.html');
     }
 
-$logado = $_SESSION['nome'];
+$logado = $_SESSION['Nome'];
 
 ?>
+<script>
+    	
+    	$(function(){
+    	var url = '../ibico/php/insere_pedido.php';
+    	function carregando()
+    	{
+    		$('.loadPedido').fadeIn('slow');
+    	}
+    		$('.criaPedidoAjax').submit(function(){   			
+                var dados = $(this).serialize();
+                $.ajax({
+                  url:url,
+                  type: 'POST',
+                  data: dados,
+                  beforeSend: carregando,
+                  success: function(retorno){
+           
+                  	if(retorno==1)
+                  	{
+
+                  		$('.erroPedido').html("Erro ao tentar registrar o pedido, por favor tente mais tarde");
+                  		$('.loadPedido').fadeOut('slow');
+                  	}
+                  	else{
+
+                 alert("Pedidos realizado com sucesso !");
+                   window.location.href ="meuspedidos.php";
+            		 }
+
+               
+                 
+               }
+                  
+    	});
+      return false;
+     });
+});
+    </script>
+
+
+
+    <link href="css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="theme-color" content="#2196F3">
-    
-	
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 	<!-- Titulo que fica na guia superior --> 
 	<title>IBico Solutions</title>
 
@@ -67,7 +109,7 @@ $logado = $_SESSION['nome'];
 				    <li><a class='dropdown-button' href='#avaliacoes' data-activates='avaliacoes-dropdown' data-belowOrigin="true" data-constrainWidth="false">Avaliações
 					
 					<i class="material-icons right">arrow_drop_down</i></a></li>
-					<li><a href="#contato">Sobre nós</a></li>
+					<li><a href="sobrenos.php">Sobre nós</a></li>
  
 					<!-- ícone "cabeça de login" lado direito  -->
 					
@@ -81,7 +123,7 @@ $logado = $_SESSION['nome'];
 		
 					<ul class="dropdown-content" id="user_dropdown">	
 					
-					<li><a class="" href="#!">Meu Perfil</a>
+					<li><a href="meuperfil.php">Meu Perfil</a>
 
         			<!-- class = indigo - text --> 
 					<li><a class="" href="#!">Ajustes</a></li>
@@ -96,9 +138,10 @@ $logado = $_SESSION['nome'];
 				<!-- Estrutura Dropdown de Anúncios (o que vem depois que você clica em anúncios/pedidos/avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='feature-dropdown' class='dropdown-content'>
-					<li><a href="meusanuncios.html">Meus anúncios</a></li>
-					<li><a href="anuncios.html">Localizar anúncios</a></li>
-					<li><a href="cadastroanuncio.html">Criar anúncio</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriaranuncio">Criar anúncios</a></li>
+					<li><a href="anuncios.php">Encontre anúncios</a></li>
+					<li><a href="meusanuncios.php">Meus anúncios</a></li>
+					
 					
 					</ul>
 					
@@ -106,18 +149,18 @@ $logado = $_SESSION['nome'];
 					<!-- Estrutura Dropdown de Pedidos - Dropdown Structure -->
 					<ul>
 					<ul id='anuncios-dropdown' class='dropdown-content'>
-					<li><a href="meuspedidos.html">Meus pedidos</a></li>
-					<li><a href="anuncios.html">Encontre um profissional</a></li>
 					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriarpedido">Criar pedido</a></li>
-					
+					<li><a href="pedidos.php">Encontre pedidos</a></li>
+					<li><a href="meuspedidos.php">Meus pedidos</a></li>
+										
 					</ul>
 					
 					
 						<!-- Estrutura Dropdown de Avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='avaliacoes-dropdown' class='dropdown-content'>
-					<li><a href="anuncios.html">Minhas Avaliações</a></li>
-					<li><a href="avaliacoes.html">Avaliações de Profissionais</a></li>
+					<li><a href="meuperfil.php">Minhas Avaliações</a></li>
+					<li><a href="avaliacoes.php">Avaliações de Profissionais</a></li>
 					
 					</ul>
 
@@ -158,14 +201,18 @@ $logado = $_SESSION['nome'];
 			
 		   <div class="nav-wrapper">
 		   <ul class="tabs tabs-transparent">
-		   <li class="tab"><a class="blue-text text-blue center-align" href="#cardanuncios">Anúncios</a></li>
-		   <li class="tab"><a class="blue-text text-blue center-align" href="#cardpedidos">Pedidos</a></li>
+		   <li class="tab"><a class="blue-text text-blue center-align" href="#cardpedidos">Anúncios</a></li>
+		  
            </ul>
 		</div>
 		
 		
 			
-		<div id="cardanuncios" class="card-panel z-depth-5">
+		
+ <!-- CARD - BUSCAR ANÚNCIOS- GUIA ANÚNCIOS(CRIADO UM CARD COM OS DADOS DE BUSCA) --> 
+  
+
+  <div id="cardpedidos" class="card-panel z-depth-5">
 	
 		<h4 class="blue-text text-blue center-align" >Buscar Anúncios</h4>	 
 		
@@ -175,18 +222,39 @@ $logado = $_SESSION['nome'];
 		<div class="row">
 
 		
-		<div class="input-field col s12 m12">
-  
-        <i class="mdi-action-search prefix"></i> 
-		
-        <input id="icon_search" type="text" class="validate">
-		
-        <label for="icon_search">Palavra-chave</label>
-		
-		</div>
       
-
-	  <div class="col-xs-8 p-t-5">
+	  
+	  	<div class = "row">
+               <label>Categoria</label>
+               <select class = "browser-default">
+                    <option value = "" disabled selected>Selecione uma Área</option>
+                  <option value = "1">Informática</option>
+                  <option value = "2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
+				  <option value = "3">Aulas</option>
+				  <option value = "4">Autos</option>
+				  <option value = "5">Consultoria</option>
+				  <option value = "6">Eventos</option>
+				  <option value = "7">Moda e Beleza</option>
+				  <option value = "8">Reformas e Serviços Gerais</option>
+				  <option value = "9">Saúde</option>
+				  <option value = "10">Serviços Domésticos</option>
+				  <option value = "11">Comércio</option>
+				  <option value = "12">Esportes e Lazer</option>
+               </select>
+	  
+	  </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+			<div class = "row">
+              
+			  
+			  <div class="col-xs-8 p-t-5">
 					
 					<input type="checkbox" name="checkboxempresa" id="checkboxempresa">
                      <label for="checkboxempresa">Empresa</label>
@@ -201,139 +269,30 @@ $logado = $_SESSION['nome'];
                             <input type="checkbox" name="checkboxcertificado" id="checkboxcertificado">
                             <label for="checkboxcertificado">Profissionais Certificados</label>
                         </div>
-</div>
-			
-
-   <div class = "row">
-               <label>Valor Mínimo</label>
-               <select class = "browser-default">
-                  <option value = "" disabled selected>Selecione um valor mínimo</option>
-                  <option value = "1">R$ 10,00</option>
-                  <option value = "2">R$ 20,00</option>
-                  <option value = "3">R$ 30,00</option>
-				  <option value = "3">R$ 40,00</option>
-				  <option value = "3">R$ 50,00</option>
-               </select>
-            </div>
-			
-			 <div class = "row">
-              <label>Valor Máximo</label>
-               <select class = "browser-default">
-                  <option value = "" disabled selected>Selecione um valor máximo</option>
-                  <option value = "1">R$ 100,00</option>
-                  <option value = "2">R$ 200,00</option>
-                  <option value = "3">R$ 300,00</option>
-				  <option value = "3">R$ 400,00</option>
-				  <option value = "3">R$ 500,00</option>
-				  <option value = "3">R$ 600,00</option>
-				  <option value = "3">R$ 700,00</option>
-				  <option value = "3">R$ 800,00</option>
-				  <option value = "3">R$ 900,00</option>
-				  <option value = "3">R$ 1000,00</option>
-				 
-               </select>
-            </div>
-      
-     
-	
-  </form>
-  
-		<button class="btn blue" type="submit" name="action">Pesquisar
-		</button>
-	</div>
-	</div>	
-   <!--row-->
-   
-  
- <!-- SEGUNDO CARD - BUSCAR PEDIDOS - GUIA PEDIDOS (CRIADO UM CARD COM OS DADOS DE BUSCA) --> 
-  
-
-  <div id="cardpedidos" class="card-panel z-depth-5">
-	
-		<h4 class="blue-text text-blue center-align" >Buscar Pedidos</h4>	 
-		
-		
-		<div class="row">
-		<form class="col s12 m12">
-		<div class="row">
-
-		
-		<div class="input-field col s12 m12">
-  
-        <i class="mdi-action-search prefix"></i> 
-		
-        <input id="icon_search" type="text" class="validate">
-		
-        <label for="icon_search">Palavra-chave</label>
-		
-		</div>
-      
-			<div class = "row">
-               <label>Categoria</label>
-               <select class = "browser-default">
-                    <option value = "" disabled selected>Selecione uma área</option>
-                  <option value = "1">Informática</option>
-                  <option value = "2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
-				  <option value = "3">Aulas</option>
-				  <option value = "4">Autos</option>
-				  <option value = "5">Consultoria</option>
-				  <option value = "6">Eventos</option>
-				  <option value = "7">Moda e Beleza</option>
-				  <option value = "8">Reformas e Serviços Gerais</option>
-				  <option value = "9">Saúde</option>
-				  <option value = "10">Serviços Domésticos</option>
-				  <option value = "11">Comércio</option>
-				  <option value = "12">Esportes e Lazer</option>
-               </select>
+			  
             </div>
 	
 </div>
 			
 
-   <div class = "row">
-               <label>Valor Mínimo</label>
-               <select class = "browser-default">
-                  <option value = "" disabled selected>Selecione um valor mínimo</option>
-                  <option value = "1">R$ 10,00</option>
-                  <option value = "2">R$ 20,00</option>
-                  <option value = "3">R$ 30,00</option>
-				  <option value = "3">R$ 40,00</option>
-				  <option value = "3">R$ 50,00</option>
-               </select>
-            </div>
-			
-			 <div class = "row">
-              <label>Valor Máximo</label>
-               <select class = "browser-default">
-                  <option value = "" disabled selected>Selecione um valor máximo</option>
-                  <option value = "1">R$ 100,00</option>
-                  <option value = "2">R$ 200,00</option>
-                  <option value = "3">R$ 300,00</option>
-				  <option value = "3">R$ 400,00</option>
-				  <option value = "3">R$ 500,00</option>
-				  <option value = "3">R$ 600,00</option>
-				  <option value = "3">R$ 700,00</option>
-				  <option value = "3">R$ 800,00</option>
-				  <option value = "3">R$ 900,00</option>
-				  <option value = "3">R$ 1000,00</option>
-				 
-               </select>
-            </div>
-      
+ 
      
 	
   </form>
   
-		<button class="btn blue" type="submit" name="action">Pesquisar
+	<button class="btn blue" type="submit" name="action">Pesquisar
 		</button>
+		
 	</div>
-	
+
+		<button class="btn blue modal-trigger" type="submit" name="action" href="#modalcriaranuncio">Criar Anúncio
+		</button>
  
 				</div><!--card-->
 				</div><!--col-->
 				
 				
-	<!-- TODO CONTEÚDO GERADO PELA BUSCA PEDIDOS OU BUSCA ANÚNCIOS SERÁ EXIBIDO NESSE CARD -->
+	<!-- TODO CONTEÚDO GERADO PELA BUSCA PEDIDOS SERÁ EXIBIDO NESSE CARD -->
 				
 					<!-- <div class="col s9 13">
 									<div id="cardexibir" class="card-panel z-depth-5"> -->
@@ -343,27 +302,15 @@ $logado = $_SESSION['nome'];
                  <div class="col s12 m4 l4">
                   <ul id="task-card" class="collection with-header">
                     <li class="collection-header teal accent-4">
-                      <h4 class="task-card-title">Anúncio 1</h4>
+                      <h4 class="task-card-title">Anúncio 01</h4>
                       <p class="task-card-date">27/05/18</p>
                     </li>
                     <li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 01
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Testando 010101</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">Teste 02</span>
+                       <!-- Colocar conteúdo --> 
                     </li>
 					
 					<li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 03
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Teste 03030303</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">TESTANDO</span>
+                     <!-- Colocar conteúdo --> 
                     </li>
 					  
                       
@@ -377,28 +324,18 @@ $logado = $_SESSION['nome'];
                 <div class="col s12 m4 l4">
                   <ul id="task-card" class="collection with-header">
                     <li class="collection-header teal accent-4">
-                      <h4 class="task-card-title">Anúncio 2</h4>
+                      <h4 class="task-card-title">Anúncio 02</h4>
                       <p class="task-card-date">27/05/18</p>
                     </li>
                     <li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 01
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Testando 010101</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">Teste 02</span>
+                       <!-- Colocar conteúdo --> 
                     </li>
 					
 					<li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 03
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Teste 03030303</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">TESTANDO</span>
+                     <!-- Colocar conteúdo --> 
                     </li>
+					
+					
 					  
                       
                  </div>
@@ -406,32 +343,21 @@ $logado = $_SESSION['nome'];
                
 			   <!-- Terceiro CARD de Teste --> 
 			   
-			    <div class="col s12 m4 l4">
+			   <div class="col s12 m4 l4">
                   <ul id="task-card" class="collection with-header">
                     <li class="collection-header teal accent-4">
-                      <h4 class="task-card-title">Anúncio 3</h4>
+                      <h4 class="task-card-title">Anúncio 03</h4>
                       <p class="task-card-date">27/05/18</p>
                     </li>
-                    <li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 01
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Testando 010101</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">Teste 02</span>
-                    </li>
+                    
 					
 					<li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 03
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Teste 03030303</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">TESTANDO</span>
+                       <!-- Colocar conteúdo -->
                     </li>
 					  
+					  <li class="collection-item dismissable">
+                       <!-- Colocar conteúdo -->
+                    </li>
                       
                  </div>
                	
@@ -441,27 +367,15 @@ $logado = $_SESSION['nome'];
 				 <div class="col s12 m4 l4">
                   <ul id="task-card" class="collection with-header">
                     <li class="collection-header teal accent-4">
-                      <h4 class="task-card-title">Anúncio 4</h4>
+                      <h4 class="task-card-title">Anúncio 04</h4>
                       <p class="task-card-date">27/05/18</p>
                     </li>
                     <li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 01
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Testando 010101</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">Teste 02</span>
+                       <!-- Colocar conteúdo --> 
                     </li>
 					
 					<li class="collection-item dismissable">
-                      <input type="checkbox" id="task2" />
-                      <label for="task2">Testando 03
-                        <a href="#" class="secondary-content">
-                          <span class="ultra-small">Teste 03030303</span>
-                        </a>
-                      </label>
-                      <span class="task-cat red accent-2">TESTANDO</span>
+                     <!-- Colocar conteúdo --> 
                     </li>
 					  
                       
@@ -486,9 +400,11 @@ $logado = $_SESSION['nome'];
 
 
 
- <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
-<form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
-    <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
+ <!-- Estrutura Modal - EXIBE O CADASTRO DE ANÚNCIO  -->
+  <!-- Criando Modais  -->
+ 
+<form class="col s12" name=criaAnuncio action="" method="post"> 
+    <div id="modalcriaranuncio" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
       <div class="modal-content">
         <div class="container">
          
@@ -501,34 +417,39 @@ $logado = $_SESSION['nome'];
 					
                   <input id="title"  name ="Ped_title" type="text" required>
 				  
-                  <label for="title">Titulo do pedido</label>
+                  <label for="title">Titulo do anúncio</label>
                 </div>
                 
-              <div class="row">
-
-                <div class="input-field col s12 l6">
-				<i class="mdi-communication-email prefix"></i>
-                  <input id="email" type="email"  name="Ped_email" class="validate" required>
-                  <label for="icon_email" data-error="Incorreto" data-success="Válido">E-mail</label>
-                </div>
-                
-              </div>
+				
+				
+             
              
               <div class="row">
                 <div class="input-field col s12 l6">
-				<!-- Máximo de 11 caracteres, o suficiente para um número padrão DDD + número, exemplo: 13991636095 -->
-                 <i class="mdi-communication-call prefix"></i> 
-				  <input id="input_text" type="text" name="Ped_telefone" maxlength="11"> <!-- minlength="11" -->
-				 
-                  <label for="telefone">Telefone para contato</label>
+				
                 </div>
 				
 				
 				<div class="row" onload=""?>
                 <div class="input-field col s12 l6"> 
   
-				  <select name="Ped_estado" class = "browser-default" required> 
-                  <option value = ""  selected>Selecione o estado (UF)</option>		 
+				  <select name="Ped_estado" id ="estado_an" class = "browser-default"> 
+
+				 	<?php
+				  	
+				  		include_once("../ibico/php/conexao_class.php");
+
+
+  						$My = new MySQLiConnection();
+				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";
+				  		$result = $My->query($sql_code) or die(mysql_error());
+				  		foreach ($result as $estado) 
+				  		{
+				  	    $estadoUTF = utf8_encode($estado['Nome']);
+				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
+
+				  		}
+				  	?>   
                </select>
                 </div>
 			  </div>
@@ -539,24 +460,60 @@ $logado = $_SESSION['nome'];
 				
 				<div class="input-field col s12 l6">
 					<div class="row">
-					  <select name="Ped_municipio" class = "browser-default" required> 
-	                  <option value = "" selected>Selecione a cidade</option>		 
+				 <select name="Ped_municipio" id="municipios_an" class = "browser-default">
+
+				 <script>
+				 	
+						$("#estado_an").on("change", function(){
+
+
+						var idEstado = $("#estado_an").val();
+						$.ajax({
+							url:'../ibico/php/carregaMunicipios.php',	
+							type: 'POST',
+							data: {Nome : idEstado},
+							beforeSend: function(){
+								
+								$("#municipios_an").html("Carregando..");
+							},
+							success: function(retorno)
+							{
+								
+								
+
+								$("#municipios_an").html(retorno);
+							},
+							error: function(retornoErro)
+							{
+								
+								 
+								$("#municipios_an").html("Houve um erro ao carregar !");
+							}
+						});
+
+						});
+				</script>
+			  
+			  
+				
+					  <!-- <select name="Ped_municipio" class = "browser-default" required> -->
+	                <!--   <option value = "" selected>Selecione a cidade</option>	-->	 
 	               </select>
 	                </div>			  
                 </div>
 				
 				
 				  <div class="input-field col s12 l6">
-					<div class="row">
+					
 					  <input id="title"  name ="Ped_bairro" type="text" required>
 				  
                   <label for="title">Bairro</label>	 
 	               </select>
-				  </div>
+				  
 				 </div>
 			  
 			
-                <div class="input-field col s12 l6">
+                <div class="input-field col s12">
                <select  name="Ped_categoria" class = "browser-default" required>
                     <option value = ""  selected>Selecione uma categoria</option>
                   <option value = "1">Informática</option>
@@ -575,11 +532,16 @@ $logado = $_SESSION['nome'];
 			   
 		
 			</div> 
-			<div class="input-field col s12 l6">
-			  <textarea  name="Ped_descrava" rows="10" cols="40"  maxlength="500" required ></textarea>
-               <label for="descricao">Descreva seu Pedido</label>
-        	   </div>
-			   
+			
+			  <div class="input-field col s12 16">
+            <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
+            <label for="textarea2">Descreva seu anúncio</label>
+            <h7><b>Exemplo:</b> formação acadêmica, certificações, tempo de experiência.</h7>
+
+          </div>
+
+        	  
+			 
 			
 				<div class="input-field col s12 l6">
             <div class="file-field input-field">
@@ -589,10 +551,12 @@ $logado = $_SESSION['nome'];
                 </div> 
             </div>
         </div>
+
 				<!-- Caminho da Imagem <div class="file-path-wrapper">
                     <input type="text" class="file-path" placeholder="Escolha uma Imagem">
                 </div> -->
 	</div>
+	    
 			 
 			 <!--<div class="input-image-flash-on col s12 l6">
 				<button class="btn waves-effect waves-light center blue" type="submit" name="action">Adicionar Imagem
@@ -601,14 +565,18 @@ $logado = $_SESSION['nome'];
 			  	  
 		</div>	
     </form>
+    <!--Criando pedidos--!>
+
+
           </div>
         </div>
       </div>
       
+      
 	  <div class="modal-footer">
 	  <!-- btn waves-effect waves-light center -->
 	  
-	  <button class="btn blue" type="submit" name="action">Cadastrar Pedido
+	  <button class="btn blue" type="submit" name="action">Criar Anúncio
 		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
 		</button>
         <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
@@ -616,11 +584,207 @@ $logado = $_SESSION['nome'];
     </div>
 	 </div>
 
+	<form  name="criaPedido" class="criaPedidoAjax"> 
+    <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
+      <div class="modal-content">
+        <div class="container">
+         
+           
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+		 
+                <div class="input-field col s12">
+					
+                  <input id="title"  name ="Ped_title" type="text" required>
+				  
+                  <label for="title">Titulo do pedido</label>
+                </div>
+                
+             
+              <div class="row">
+                <div class="input-field col s12 16">
+				 <select name="Ped_estado" id ="estado" class = "browser-default"> 
+
+				  <?php
+				  	
+				  		include_once("../ibico/php/conexao_class.php");
+
+
+  						$My = new MySQLiConnection();
+				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";
+				  		$result = $My->query($sql_code) or die(mysql_error());
+				  		foreach ($result as $estado) 
+				  		{
+				  	    $estadoUTF = utf8_encode($estado['Nome']);
+				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
+
+				  		}
+				  	?>   
+               </select>
+                </div>
+				
+				
+				<div class="row" onload="">
+                <div class="input-field col s12 16"> 
+  
+				 
+                </div>
+			  </div>
+			   
+			   
+			  <!-- <label for="estado">Estado</label> -->
+			   
+				
+				<div class="input-field col s12 l6">
+					<div class="row">
+				 <select name="Ped_municipio" id="municipios" class = "browser-default">
+                  <option>Município</option>
+              
+				 <script>
+				 	
+						$("#estado").on("change", function(){
+
+
+						var idEstado = $("#estado").val();
+						$.ajax({
+							url:'../ibico/php/carregaMunicipios.php',	
+							type: 'POST',
+							data: {Nome : idEstado},
+							beforeSend: function(){
+								
+								$("#municipios").html("Carregando..");
+							},
+							success: function(retorno)
+							{
+								
+								
+
+								$("#municipios").html(retorno);
+							},
+							error: function(retornoErro)
+							{
+								
+								 
+								$("#municipios").html("Houve um erro ao carregar !");
+							}
+						});
+
+						});
+				</script>
+				
+					  <!-- <select name="Ped_municipio" class = "browser-default" required> -->
+	                <!--   <option value = "" selected>Selecione a cidade</option>	-->	 
+	               </select>
+	                </div>			  
+                </div>
+				
+				
+				  <div class="input-field col s12 l6">
+					
+					  <input id="title"  name ="Ped_bairro" type="text" required>
+				  
+                  <label for="title">Bairro</label>	 
+	               </select>
+				  
+				 </div>
+				 
+				 <select name="Ped_categoria" class="browser-default" required="">
+                    <option value="" selected="">Selecione uma categoria</option>
+                  <option value="Informática">Informática</option>
+                  <option value="Aparelhos Eletrônicos e Eletrodomésticos">Aparelhos Eletrônicos e Eletrodomésticos</option>            
+				  <option value="Aulas">Aulas</option>
+				  <option value="Autos">Autos</option>
+				  <option value="Consultoria">Consultoria</option>
+				  <option value="Eventos">Eventos</option>
+				  <option value="Moda e Beleza">Moda e Beleza</option>
+				  <option value="Reformas e Serviços Gerais">Reformas e Serviços Gerais</option>
+				  <option value="Saúde">Saúde</option>
+				  <option value="1Serviços Domésticos">Serviços Domésticos</option>
+				  <option value="Comércio">Comércio</option>
+				  <option value="Esportes e Lazer">Esportes e Lazer</option>
+               </select>
+			  
+			
+               
+			
+			  <div class="input-field col s12 16">
+            <textarea id="textarea2" class="materialize-textarea" name="Ped_descrava" data-length="120"></textarea>
+            <label for="textarea2">Descreva seu pedido</label>
+          </div>
+        	  
+			  <center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="loadPedido"/></center>
+         <font color="red"<p><center><h7 class="erroPedido"></h7></center></p></font>
+			
+				<div class="input-field col s12 l6">
+            <div class="file-field input-field">
+                <div class="btn blue">
+                    <span>Adicionar Imagem</span>
+                    <input type="file" name="image">
+                </div> 
+            </div>
+        </div>
+        
+
+				<!-- Caminho da Imagem <div class="file-path-wrapper">
+                    <input type="text" class="file-path" placeholder="Escolha uma Imagem">
+                </div> -->
+	</div>
+	    
+			 
+			 <!--<div class="input-image-flash-on col s12 l6">
+				<button class="btn waves-effect waves-light center blue" type="submit" name="action">Adicionar Imagem
+				</button>
+				</div> -->
+			  	  
+		</div>	
+    
+          </div>
+        </div>
+      </div>
+
+
+      
+      
+	  <div class="modal-footer">
+	  <!-- btn waves-effect waves-light center -->
+	  
+	  <button class="btn blue" type="submit" name="action">Criar Pedido
+		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
+		</button>
+		</form>
+        <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
+      </div>
+    </div>
+	 </div>
+   
 
 	 
-<!-- Fim do cadastro de pedido -->
+<!-- Fim das modais -->
 	
     
+	
+	
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 

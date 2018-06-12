@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <!-- verificando se o juery está incluso -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
@@ -25,9 +25,9 @@
                   beforeSend: carregando,
                   success: function(retorno){
 
-                  	if(retorno==1)
-                  	{
-                     
+
+                    if(retorno==1) 
+                    {                   
                   	$('.erroSenha').html("email ou senha inválidos !");
                   	$('.load').fadeOut('slow');
 
@@ -36,9 +36,10 @@
                  alert(retorno);
 
                
-               window.location.href ="home.php";
+                 window.location.href ="meuperfil.php";
                }
                  }
+                  
     	});
       return false;
      });
@@ -51,10 +52,10 @@
     <script>
     	
     	$(function(){
-    	var url = '../ibico/php/insere.php';
+    	var url = '../ibico/php/insere_usuario.php';
     	function carregando()
     	{
-    		$('.load').fadeIn('slow');
+    		$('.loadCadastro').fadeIn('slow');
     	}
     		$('.cadastroUsuario').submit(function(){   			
                 var dados = $(this).serialize();
@@ -64,48 +65,47 @@
                   data: dados,
                   beforeSend: carregando,
                   success: function(retorno){
+                 
+                    
 
-                  	if(retorno>1)
+                  	if(retorno==1)
                   	{
-                     if(retorno>2)
-                     {
+                    $('.emailCadastrado').html("Email já cadastrado !");
+                    $('.loadCadastro').fadeOut('slow');
 
-                     	if(retorno>3)
-                     	{
+                    } else if (retorno==2)
+                    {
+                    $('.emailCadastrado').html("É preciso aceitar os termos para continuar !");
+                    $('.loadCadastro').fadeOut('slow');
 
-                     	$('.emailCadastrado').html("");
-                     	
-                     	alert("Cadastro realizado com sucesso !");
-						window.location.href ="index.html";
 
-                     	}
 
-                     	else{
-	                    $('.emailCadastrado').html("Preencha apenas números nos campos telefone e celular");
-	                  	$('.load').fadeOut('slow');
+                    } else if (retorno==3)
+                    {
+    
+                      $('.emailCadastrado').html("Preencha apenas números nos campos telefone e celular");
+                      $('.loadCadastro').fadeOut('slow');
 
-                     	}
+                    } else
 
-                     }
+                    {
 
-                     else{
+                     $('.emailCadastrado').html("");
+                      
+                      alert("Cadastro realizado com sucesso !");
+                     window.location.href ="index.html";
 
-                  	$('.emailCadastrado').html("É preciso aceitar os termos para continuar !");
-                  	$('.load').fadeOut('slow');
-                     }                 	
 
-                  	}else{
+                    }
 
-                  	$('.emailCadastrado').html("Email já cadastrado !");
-                  	$('.load').fadeOut('slow');
-                  }
+                    
 
                 // alert(retorno);
-
                
               // window.location.href ="index.html#modalentrar";
                
                  }
+               
     	});
       return false;
      });
@@ -165,7 +165,7 @@
 				    <li><a class='dropdown-button' href='#avaliacoes' data-activates='avaliacoes-dropdown' data-belowOrigin="true" data-constrainWidth="false">Avaliações
 					
 					<i class="material-icons right">arrow_drop_down</i></a></li>
-					<li><a href="#contato">Sobre nós</a></li>
+					<li><a href="sobrenos.php">Sobre nós</a></li>
  
 					<!-- ícone "cabeça de login" lado direito  -->
 					
@@ -204,9 +204,7 @@
 					<ul>
 					<ul id='feature-dropdown' class='dropdown-content'>
 				    <li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Meus anúncios</a></li>
-					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Localizar anúncios</a></li>
-					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Criar anúncios</a></li>
-					
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Encontre anúncios</a></li>				
 					</ul>
 					
 					
@@ -214,15 +212,15 @@
 					<ul>
 					<ul id='anuncios-dropdown' class='dropdown-content'>
 					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Meus pedidos</a></li>
-					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Criar pedido</a></li>
-					
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Encontre pedidos</a></li>
+									
 					</ul>
 
 				    <!-- Estrutura Dropdown de Avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='avaliacoes-dropdown' class='dropdown-content'>
 					<li><a class="modal-trigger" type="submit" name="action" href="#modalentrar">Minhas avaliações</a></li>
-					<li><a href="avaliacoes.html">Avaliações de Profissionais</a></li>
+					<li><a href="avaliacoes.php">Avaliações de Profissionais</a></li>
 					
 					</ul>
 
@@ -265,6 +263,8 @@
         </div>
     </nav>
 </div>
+
+
 
 
  <div id="banner" class="parallax-container">
@@ -317,6 +317,16 @@
         <div class="row">
             <div  class="col s12">
                 <h2 class="center header text_h2"> Solução para clientes e profissionais<br> <span class="span_h2"> seu melhor negócio.</span> </h2>
+				
+				<h1 class="text_h2 center header cd-headline letters type" color="black">
+				<span>IBico</span> 
+				<span class="cd-words-wrapper waiting">
+                <b class="is-visible">negócios</b>
+                <b>cadastre-se já!</b>
+                <b></b>
+				</span>
+				</h1>
+				
             </div>
 
             <div  class="col s12 m4 l4">
@@ -448,9 +458,9 @@
                 </div>
                 <div class="input-field col s12 l6">
                   <p>
-                    <input required name="sexo" type="radio" id="rd_masculino"/>
+                    <input required name="sexo" value="Masculio" type="radio" id="rd_masculino"/>
                     <label for="rd_masculino">Masculino</label>
-                    <input required name="sexo" type="radio" id="rd_feminino" />
+                    <input required name="sexo" type="radio" value="Feminino" id="rd_feminino" />
                     <label for="rd_feminino">Feminino</label>
                   </p>
                 </div>
@@ -464,18 +474,16 @@
 				 
                   <label for="telefone">Telefone</label>
                 </div>
-
-                <div class="row">
-                <div class="input-field col s12 l6">
-				<!-- Máximo de 11 caracteres, o suficiente para um número padrão DDD + número, exemplo: 13991636095 --> 
-				  <input id="celular" name="celular" type="text" maxlength="11"> <!-- minlength="11" -->
-				 
-                  <label for="celular">Celular</label>
-                </div>
-
-
 				
                 <div class="input-field col s12 l6">
+				  <i class="mdi-hardware-phone-iphone prefix"></i>
+                  <input id="celular" required name="celular" type="text" maxlength="11">
+                  <label for="senha">Telefone Celular</label>
+				
+                </div>
+				
+				
+				 <div class="input-field col s12 l6">
 				  <i class="mdi-action-https prefix"></i>
                   <input id="password" required name="senha" type="password" class="validate">
                   <label for="senha">Senha de Acesso</label>
@@ -484,15 +492,17 @@
 
 
               </div>
-              <font color="red"<p><center><h7 class="emailCadastrado"></h7></center></p></font>
-              	<font color="green"<p><center><h7 class="sucessoCadastro"></h7></center></p></font>
-         	  
+            
 			   <div class="form-group">
                         <input type="checkbox"  name="terms" id="terms" value="aceito" class="filled-in chk-col-pink">
                         <label for="terms">Eu li e concordo com o <a href="javascript:void(0);">termo de uso</a>.</label>
                     </div>
 
-					
+					<!-- Loader Ajax -->
+				  <font color="red"<p><center><h7 class="emailCadastrado"></h7></center></p></font>
+              	<font color="green"<p><center><h7 class="sucessoCadastro"></h7></center></p></font>
+
+                <center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="loadCadastro"/></center>	
           
           </div>
         </div>
@@ -620,7 +630,7 @@
       out_duration: 200, // Duração da Transição Transition out duration
       ready: function() { alert('Ready'); }, //  Retorno do Modal quando aberto - Callback for Modal open
       complete: function() { alert('Closed'); } // Chamada de retorno para fechar o Modal - Callback for Modal close
-      alert("aaaa");
+      
     }
   );
   

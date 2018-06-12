@@ -20,6 +20,10 @@ sleep(2);
 
 		echo "rodou";
 	}
+	else
+	{
+		echo "1";
+	}
 
 
 

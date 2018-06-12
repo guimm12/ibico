@@ -81,10 +81,11 @@ create table pedido
     -- cd_localidade int,
     ds_titulo varchar(100),
     ds_pedido varchar(5000),
-	contato varchar(300),
 	estado varchar(50),
 	municipio varchar(100),
 	bairro varchar(100),
+	FK_id_cliente int not null,
+	FOREIGN KEY (FK_id_cliente) REFERENCES usuario(Id)
 );
 
 create table pedido_tag
