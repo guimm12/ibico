@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>	
 <?php
 session_start();
 if((isset ($_SESSION['email']) == false) and (isset ($_SESSION['senha']) == false))
@@ -13,13 +14,54 @@ $logado = $_SESSION['Nome'];
 
 ?>
 
+ <!-- adicionando pedido -->
+<script>
+    	
+    	$(function(){
+    	var url = '../ibico/php/insere_pedido.php';
+    	function carregando()
+    	{
+    		$('.loadPedido').fadeIn('slow');
+    	}
+    		$('.criaPedidoAjax').submit(function(){   			
+                var dados = $(this).serialize();
+                $.ajax({
+                  url:url,
+                  type: 'POST',
+                  data: dados,
+                  beforeSend: carregando,
+                  success: function(retorno){
+           
+                  	if(retorno==1)
+                  	{
+
+                  		$('.erroPedido').html("Erro ao tentar registrar o pedido, por favor tente mais tarde");
+                  		$('.loadPedido').fadeOut('slow');
+                  	}
+                  	else{
+
+                 alert("Pedidos realizado com sucesso !");
+                   window.location.href ="meuspedidos.php";
+            		 }
+
+               
+                 
+               }
+                  
+    	});
+      return false;
+     });
+});
+    </script>
 
 
 
+
+    <link href="css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <meta name="theme-color" content="#2196F3">
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
 	<!-- Titulo que fica na guia superior --> 
 	<title>IBico Solutions</title>
 
@@ -99,8 +141,9 @@ $logado = $_SESSION['Nome'];
 				<!-- Estrutura Dropdown de Anúncios (o que vem depois que você clica em anúncios/pedidos/avaliações - Dropdown Structure -->
 					<ul>
 					<ul id='feature-dropdown' class='dropdown-content'>
-					<li><a href="meusanuncios.php">Meus anúncios</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriaranuncio">Criar anúncios</a></li>
 					<li><a href="anuncios.php">Encontre anúncios</a></li>
+					<li><a href="meusanuncios.php">Meus anúncios</a></li>
 					
 					
 					</ul>
@@ -109,8 +152,9 @@ $logado = $_SESSION['Nome'];
 					<!-- Estrutura Dropdown de Pedidos - Dropdown Structure -->
 					<ul>
 					<ul id='anuncios-dropdown' class='dropdown-content'>
-					<li><a href="meuspedidos.php">Meus pedidos</a></li>
+					<li><a class="modal-trigger" type="submit" name="action" href="#modalcriarpedido">Criar pedido</a></li>
 					<li><a href="pedidos.php">Encontre pedidos</a></li>
+					<li><a href="meuspedidos.php">Meus pedidos</a></li>
 					
 					
 					</ul>
@@ -343,7 +387,7 @@ $logado = $_SESSION['Nome'];
 
 
  <!-- Estrutura Modal - EXIBE O CADASTRO DE PEDIDO  -->
-<form class="col s12" name=criaPedido action="../ibico/php/insere_pedido.php" method="post"> 
+<form  name="criaPedido" class="criaPedidoAjax"> 
     <div id="modalcriarpedido" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
       <div class="modal-content">
         <div class="container">
@@ -365,18 +409,21 @@ $logado = $_SESSION['Nome'];
                 <div class="input-field col s12 16">
 				 <select name="Ped_estado" id ="estado" class = "browser-default"> 
 
-				  	<?php
+				  <?php
 				  	
-				  		$connect = mysqli_connect('localhost:3306','root','');
- 						$db = mysqli_select_db($connect,'ibico');
-				  		$sql_code = mysqli_query($connect,"SELECT Id, Nome, UF FROM Estado order by Nome ASC") or die("erro ao selecionar");
-				  		foreach ($sql_code as $estado) 
+				  		include_once("../ibico/php/conexao_class.php");
+
+
+  						$My = new MySQLiConnection();
+				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";
+				  		$result = $My->query($sql_code) or die(mysql_error());
+				  		foreach ($result as $estado) 
 				  		{
 				  	    $estadoUTF = utf8_encode($estado['Nome']);
 				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
 
 				  		}
-				  	?> 
+				  	?>   
                </select>
                 </div>
 				
@@ -428,7 +475,6 @@ $logado = $_SESSION['Nome'];
 
 						});
 				</script>
-			  
 				
 					  <!-- <select name="Ped_municipio" class = "browser-default" required> -->
 	                <!--   <option value = "" selected>Selecione a cidade</option>	-->	 
@@ -470,6 +516,190 @@ $logado = $_SESSION['Nome'];
             <label for="textarea2">Descreva seu pedido</label>
           </div>
         	  
+			  <center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="loadPedido"/></center>
+         <font color="red"<p><center><h7 class="erroPedido"></h7></center></p></font>
+			
+				<div class="input-field col s12 l6">
+            <div class="file-field input-field">
+                <div class="btn blue">
+                    <span>Adicionar Imagem</span>
+                    <input type="file" name="image">
+                </div> 
+            </div>
+        </div>
+        
+
+				<!-- Caminho da Imagem <div class="file-path-wrapper">
+                    <input type="text" class="file-path" placeholder="Escolha uma Imagem">
+                </div> -->
+	</div>
+	    
+			 
+			 <!--<div class="input-image-flash-on col s12 l6">
+				<button class="btn waves-effect waves-light center blue" type="submit" name="action">Adicionar Imagem
+				</button>
+				</div> -->
+			  	  
+		</div>	
+    
+          </div>
+        </div>
+      </div>
+
+
+      
+      
+	  <div class="modal-footer">
+	  <!-- btn waves-effect waves-light center -->
+	  
+	  <button class="btn blue" type="submit" name="action">Criar Pedido
+		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
+		</button>
+		</form>
+        <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
+      </div>
+    </div>
+	 </div>
+
+
+
+	 <form class="col s12" name=criaAnuncio action="" method="post"> 
+    <div id="modalcriaranuncio" class="modal modal-fixed-footer"> <!-- Rodapé Fixo -->
+      <div class="modal-content">
+        <div class="container">
+         
+           
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+		 
+                <div class="input-field col s12 l6">
+					
+                  <input id="title"  name ="Ped_title" type="text" required>
+				  
+                  <label for="title">Titulo do anúncio</label>
+                </div>
+                
+				
+				
+             
+             
+              <div class="row">
+                <div class="input-field col s12 l6">
+				
+                </div>
+				
+				
+				<div class="row" onload=""?>
+                <div class="input-field col s12 l6"> 
+  
+				  <select name="Ped_estado" id ="estado_an" class = "browser-default"> 
+
+				 	<?php
+				  	
+				  		include_once("../ibico/php/conexao_class.php");
+
+
+  						$My = new MySQLiConnection();
+				  		$sql_code ="SELECT Id, Nome, UF FROM Estado order by Nome ASC";
+				  		$result = $My->query($sql_code) or die(mysql_error());
+				  		foreach ($result as $estado) 
+				  		{
+				  	    $estadoUTF = utf8_encode($estado['Nome']);
+				  		echo'<option value ="'.$estadoUTF.'">'.$estadoUTF.'</option>';
+
+				  		}
+				  	?>   
+               </select>
+                </div>
+			  </div>
+			   
+			   
+			  <!-- <label for="estado">Estado</label> -->
+			   
+				
+				<div class="input-field col s12 l6">
+					<div class="row">
+				 <select name="Ped_municipio" id="municipios_an" class = "browser-default">
+
+				 <script>
+				 	
+						$("#estado_an").on("change", function(){
+
+
+						var idEstado = $("#estado_an").val();
+						$.ajax({
+							url:'../ibico/php/carregaMunicipios.php',	
+							type: 'POST',
+							data: {Nome : idEstado},
+							beforeSend: function(){
+								
+								$("#municipios_an").html("Carregando..");
+							},
+							success: function(retorno)
+							{
+								
+								
+
+								$("#municipios_an").html(retorno);
+							},
+							error: function(retornoErro)
+							{
+								
+								 
+								$("#municipios_an").html("Houve um erro ao carregar !");
+							}
+						});
+
+						});
+				</script>
+			  
+				
+					  <!-- <select name="Ped_municipio" class = "browser-default" required> -->
+	                <!--   <option value = "" selected>Selecione a cidade</option>	-->	 
+	               </select>
+	                </div>			  
+                </div>
+				
+				
+				  <div class="input-field col s12 l6">
+					
+					  <input id="title"  name ="Ped_bairro" type="text" required>
+				  
+                  <label for="title">Bairro</label>	 
+	               </select>
+				  
+				 </div>
+			  
+			
+                <div class="input-field col s12">
+               <select  name="Ped_categoria" class = "browser-default" required>
+                    <option value = ""  selected>Selecione uma categoria</option>
+                  <option value = "1">Informática</option>
+                  <option value = "2">Aparelhos Eletrônicos e Eletrodomésticos</option>            
+				  <option value = "3">Aulas</option>
+				  <option value = "4">Autos</option>
+				  <option value = "5">Consultoria</option>
+				  <option value = "6">Eventos</option>
+				  <option value = "7">Moda e Beleza</option>
+				  <option value = "8">Reformas e Serviços Gerais</option>
+				  <option value = "9">Saúde</option>
+				  <option value = "10">Serviços Domésticos</option>
+				  <option value = "11">Comércio</option>
+				  <option value = "12">Esportes e Lazer</option>
+               </select>
+			   
+		
+			</div> 
+			
+			  <div class="input-field col s12 16">
+            <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
+            <label for="textarea2">Descreva seu anúncio</label>
+            <h7><b>Exemplo:</b> formação acadêmica, certificações, tempo de experiência.</h7>
+
+          </div>
+
+        	  
 			 
 			
 				<div class="input-field col s12 l6">
@@ -493,7 +723,10 @@ $logado = $_SESSION['Nome'];
 				</div> -->
 			  	  
 		</div>	
-    </form>
+    
+    <!--Criando pedidos--!>
+
+
           </div>
         </div>
       </div>
@@ -502,42 +735,21 @@ $logado = $_SESSION['Nome'];
 	  <div class="modal-footer">
 	  <!-- btn waves-effect waves-light center -->
 	  
-	  <button class="btn blue" type="submit" name="action">Criar Pedido
+	  <button class="btn blue" type="submit" name="action">Criar Anúncio
 		<!-- logotipo de sair <i class="fa fa-sign-in right"></i> -->
 		</button>
+		</form>
+
         <!-- Outro tipo de efeito no botão de Registrar <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Registrar</a> -->
       </div>
     </div>
 	 </div>
+	 
 
 
 	 
 <!-- Fim do cadastro de pedido -->
-	
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 
 
 <!--Rodapé -->
