@@ -66,47 +66,45 @@
                   success: function(retorno){
                     
 
-                  	if(retorno>1)
+                  	if(retorno==1)
                   	{
-                     if(retorno>2)
-                     {
+                    $('.emailCadastrado').html("Email já cadastrado !");
+                    $('.loadCadastro').fadeOut('slow');
 
-                     	if(retorno>3)
-                     	{
+                    } else if (retorno==2)
+                    {
+                    $('.emailCadastrado').html("É preciso aceitar os termos para continuar !");
+                    $('.loadCadastro').fadeOut('slow');
 
-                     	$('.emailCadastrado').html("");
-                     	
-                     	alert("Cadastro realizado com sucesso !");
-					           window.location.href ="index.html";
 
-                     	}
 
-                     	else{
-	                    $('.emailCadastrado').html("Preencha apenas números nos campos telefone e celular");
-	                  	$('.loadCadastro').fadeOut('slow');
+                    } else if (retorno==3)
+                    {
 
-                     	}
+                        else{
+                      $('.emailCadastrado').html("Preencha apenas números nos campos telefone e celular");
+                      $('.loadCadastro').fadeOut('slow');
 
-                     }
+                    } else
 
-                     else{
+                    {
 
-                  	$('.emailCadastrado').html("É preciso aceitar os termos para continuar !");
-                  	$('.loadCadastro').fadeOut('slow');
-                     }                 	
+                     $('.emailCadastrado').html("");
+                      
+                      alert("Cadastro realizado com sucesso !");
+                     window.location.href ="index.html";
 
-                  	}else{
 
-                  	$('.emailCadastrado').html("Email já cadastrado !");
-                  	$('.loadCadastro').fadeOut('slow');
-                  }
+                    }
+
+                    
 
                 // alert(retorno);
-
                
               // window.location.href ="index.html#modalentrar";
                
                  }
+               }
     	});
       return false;
      });

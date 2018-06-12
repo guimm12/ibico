@@ -41,7 +41,7 @@ $logado = $_SESSION['Nome'];
                   	else{
 
                  alert("Pedidos realizado com sucesso !");
-                   window.location.href ="pedidos.php";
+                   window.location.href ="meuspedidos.php";
             		 }
 
                
