@@ -25,6 +25,7 @@
                   beforeSend: carregando,
                   success: function(retorno){
 
+
                     if(retorno==1) 
                     {                   
                   	$('.erroSenha').html("email ou senha inválidos !");
@@ -64,6 +65,7 @@
                   data: dados,
                   beforeSend: carregando,
                   success: function(retorno){
+                 
                     
 
                   	if(retorno==1)
@@ -80,8 +82,7 @@
 
                     } else if (retorno==3)
                     {
-
-                        else{
+    
                       $('.emailCadastrado').html("Preencha apenas números nos campos telefone e celular");
                       $('.loadCadastro').fadeOut('slow');
 
@@ -104,7 +105,7 @@
               // window.location.href ="index.html#modalentrar";
                
                  }
-               }
+               
     	});
       return false;
      });
@@ -457,9 +458,9 @@
                 </div>
                 <div class="input-field col s12 l6">
                   <p>
-                    <input required name="sexo" type="radio" id="rd_masculino"/>
+                    <input required name="sexo" value="Masculio" type="radio" id="rd_masculino"/>
                     <label for="rd_masculino">Masculino</label>
-                    <input required name="sexo" type="radio" id="rd_feminino" />
+                    <input required name="sexo" type="radio" value="Feminino" id="rd_feminino" />
                     <label for="rd_feminino">Feminino</label>
                   </p>
                 </div>
@@ -629,7 +630,7 @@
       out_duration: 200, // Duração da Transição Transition out duration
       ready: function() { alert('Ready'); }, //  Retorno do Modal quando aberto - Callback for Modal open
       complete: function() { alert('Closed'); } // Chamada de retorno para fechar o Modal - Callback for Modal close
-      alert("aaaa");
+      
     }
   );
   
