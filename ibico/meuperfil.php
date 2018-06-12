@@ -20,7 +20,7 @@ $logado = $_SESSION['Nome'];
     	var url = '../ibico/php/insere_pedido.php';
     	function carregando()
     	{
-    		$('.loadPedido').fadeIn('slow');
+    		$('.load').fadeIn('slow');
     	}
     		$('.criaPedidoAjax').submit(function(){   			
                 var dados = $(this).serialize();
@@ -35,7 +35,7 @@ $logado = $_SESSION['Nome'];
                   	{
 
                   		$('.erroPedido').html("Erro ao tentar registrar o pedido, por favor tente mais tarde");
-                  		$('.loadPedido').fadeOut('slow');
+                  		$('.load').fadeOut('slow');
                   	}
                   	else{
 
@@ -659,7 +659,7 @@ $logado = $_SESSION['Nome'];
             <label for="textarea2">Descreva seu pedido</label>
           </div>
         	  
-			  <center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="loadPedido"/></center>
+			  	<center><img src="../ibico/img/ajax-loader.gif" alt="carregando" class="load"/></center>
          <font color="red"<p><center><h7 class="erroPedido"></h7></center></p></font>
 			
 				<div class="input-field col s12 l6">
