@@ -2,7 +2,7 @@
 	$server="localhost:3306";
 	$user="root";
 	$pass="";
-	$dbname="ibico";
+	$dbname="db_ibico";
 
 	$conexao = new mysqli($server,$user,$pass,$dbname);
 
